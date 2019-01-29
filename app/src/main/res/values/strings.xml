@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BusinessCardsApp</string>
+    <string name="settingsToolbarButton">Налаштування</string>
+
+    <string name="cardsTabTitle">Візитки</string>
+    <string name="myCardsTabTitle">Мої візитки</string>
+
 </resources>
