@@ -34,18 +34,11 @@ public class ExampleFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        initCardList();
-    }
-
     private void initRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.fragment_recyclerView);
-        CardItemAdapter adapter = new CardItemAdapter(cardList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter);
+        initCardList();
+        recyclerView.setAdapter(new CardItemAdapter(cardList));
     }
 
     private void initCardList() {

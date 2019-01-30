@@ -40,16 +40,6 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.CardIt
         return cardItemList.size();
     }
 
-//    public void setItems (List<Card> cards){
-//        cardItemList.addAll(cards);
-//        notifyDataSetChanged();
-//    }
-//
-//    public void clearItems() {
-//        cardItemList.clear();
-//        notifyDataSetChanged();
-//    }
-
     public class CardItemViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageImgView;
