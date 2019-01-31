@@ -43,14 +43,7 @@ public class ExampleFragment extends Fragment {
 
     private void initCardList() {
         cardList = new ArrayList<>();
-        cardList.add(new Card(R.drawable.ic_add_white_24dp, "Мельничук Єгор Юрійович", "Одеський Національний Політехнічний Університет"));
-        cardList.add(new Card(R.drawable.ic_settings_white_24dp, "Мельничук Єгор Юрійович", "Одеський Національний Політехнічний Університет"));
-        cardList.add(new Card(R.mipmap.ic_launcher, "Мельничук Єгор Юрійович", "Одеський Національний Політехнічний Університет"));
-        cardList.add(new Card(R.mipmap.ic_launcher, "Мельничук Єгор Юрійович", "Одеський Національний Політехнічний Університет"));
-        cardList.add(new Card(R.mipmap.ic_launcher, "Мельничук Єгор Юрійович", "Одеський Національний Політехнічний Університет"));
-        cardList.add(new Card(R.mipmap.ic_launcher, "Мельничук Єгор Юрійович", "Одеський Національний Політехнічний Університет"));
-        cardList.add(new Card(R.mipmap.ic_launcher, "Мельничук Єгор Юрійович", "Одеський Національний Політехнічний Університет"));
-        cardList.add(new Card(R.mipmap.ic_launcher, "Мельничук Єгор Юрійович", "Одеський Національний Політехнічний Університет"));
-        cardList.add(new Card(R.mipmap.ic_launcher, "Мельничук Єгор Юрійович", "Одеський Національний Політехнічний Університет"));
+        cardList.add(new Card(R.mipmap.ic_launcher_round, "Мельничук Єгор", "ОНПУ"));
+        cardList.add(new Card(R.mipmap.ic_launcher, "Дідик Дмитро", "ДНМУ"));
     }
 }

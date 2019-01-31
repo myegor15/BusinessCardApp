@@ -43,24 +43,4 @@ public class Card {
     public void setOrganisationName(String organisationName) {
         this.organisationName = organisationName;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Card card = (Card) o;
-
-        if (image != card.image) return false;
-        if (!personName.equals(card.personName)) return false;
-        return organisationName.equals(card.organisationName);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = image;
-        result = 31 * result + personName.hashCode();
-        result = 31 * result + organisationName.hashCode();
-        return result;
-    }
 }
