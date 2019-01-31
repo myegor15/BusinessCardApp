@@ -17,9 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="5dp"
-            android:text="Contact Name"
+            android:text="name"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -31,12 +31,135 @@
             android:background="@android:color/white">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="phone1"
+                android:textSize="@dimen/dialog_text_size"
+                android:textColor="@android:color/black"
+                android:drawableStart="@drawable/ic_phone"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:autoLink="phone"
+                android:linksClickable="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="phone2"
+                android:textSize="@dimen/dialog_text_size"
+                android:textColor="@android:color/black"
+                android:paddingLeft="44dp"
+                android:paddingRight="10dp"
+                android:paddingVertical="5dp"
+                android:autoLink="phone"
+                android:linksClickable="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fax"
+                android:textSize="@dimen/dialog_text_size"
+                android:textColor="@android:color/black"
+                android:drawableStart="@drawable/ic_fax"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:autoLink="phone"
+                android:linksClickable="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="email"
+                android:textSize="@dimen/dialog_text_size"
+                android:textColor="@android:color/black"
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:autoLink="email"
+                android:linksClickable="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="web"
+                android:textSize="@dimen/dialog_text_size"
+                android:textColor="@android:color/black"
+                android:drawableStart="@drawable/ic_web"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:autoLink="web"
+                android:linksClickable="true"/>
+
+            <TextView
                 android:id="@+id/organisationName_dialogCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Organisation"
-                android:textSize="18sp"
-                android:textColor="@android:color/black" />
+                android:text="organisation"
+                android:textSize="@dimen/dialog_text_size"
+                android:textColor="@android:color/black"
+                android:drawableStart="@drawable/ic_organisation"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="position"
+                android:textSize="@dimen/dialog_text_size"
+                android:textColor="@android:color/black"
+                android:paddingLeft="44dp"
+                android:paddingRight="10dp"
+                android:paddingVertical="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="adress"
+                android:textSize="@dimen/dialog_text_size"
+                android:textColor="@android:color/black"
+                android:drawableStart="@drawable/ic_addres"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="facebook"
+                android:textSize="@dimen/dialog_text_size"
+                android:textColor="@android:color/black"
+                android:drawableStart="@drawable/ic_facebook"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="twitter"
+                android:textSize="@dimen/dialog_text_size"
+                android:textColor="@android:color/black"
+                android:drawableStart="@drawable/ic_twitter"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="instagram"
+                android:textSize="@dimen/dialog_text_size"
+                android:textColor="@android:color/black"
+                android:drawableStart="@drawable/ic_instagram"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"/>
+
         </LinearLayout>
     </LinearLayout>
 
