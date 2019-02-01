@@ -43,7 +43,33 @@ public class ExampleFragment extends Fragment {
 
     private void initCardList() {
         cardList = new ArrayList<>();
-        cardList.add(new Card(R.mipmap.ic_launcher_round, "Мельничук Єгор", "ОНПУ"));
-        cardList.add(new Card(R.mipmap.ic_launcher, "Дідик Дмитро", "ДНМУ"));
+        cardList.add(new Card(R.mipmap.ic_launcher_round,
+                "Мельничук Єгор",
+                "0956301039",
+                "",
+                "",
+                "myegor15@gmail.com",
+                "ОНПУ",
+                "студент",
+                "",
+                "vk.com",
+                "",
+                "@melnichuk_inc",
+                "@melnichuk_inc"
+        ));
+        cardList.add(new Card(R.mipmap.ic_launcher_round,
+                "Дмитро Дідик",
+                null,
+                null,
+                null,
+                null,
+                "ДНМУ",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        ));
     }
 }

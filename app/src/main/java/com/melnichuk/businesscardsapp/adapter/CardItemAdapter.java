@@ -21,8 +21,6 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.CardIt
 
     private List<Card> cardItemList;
 
-    private Dialog dialog;
-
     public CardItemAdapter(List<Card> cardItemList) {
         this.cardItemList = cardItemList;
     }
@@ -35,25 +33,10 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.CardIt
                 .inflate(R.layout.card_item_view, viewGroup, false);
 
         final CardItemViewHolder viewHolder = new CardItemViewHolder(view);
-
-        //init Dialog
-        dialog = new Dialog(viewGroup.getContext());
-        dialog.setContentView(R.layout.dialog_card);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
         viewHolder.cardItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //утечка памяти
-                ImageView imageDialog = dialog.findViewById(R.id.image_dialogCard);
-                TextView personNameDialog = dialog.findViewById(R.id.personName_dialogCard);
-                TextView organisationNameDialog = dialog.findViewById(R.id.organisationName_dialogCard);
-
-                imageDialog.setImageResource(cardItemList.get(viewHolder.getAdapterPosition()).getImage());
-                personNameDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getPersonName());
-                organisationNameDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getOrganisationName());
-
-                dialog.show();
+                initDialog(viewGroup, viewHolder);
             }
         });
 
@@ -70,25 +53,73 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.CardIt
         return cardItemList.size();
     }
 
+    private void initDialog(ViewGroup viewGroup, CardItemViewHolder viewHolder) {
+        Dialog dialog = new Dialog(viewGroup.getContext());
+        dialog.setContentView(R.layout.dialog_card);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ImageView imageDialog = dialog.findViewById(R.id.image_dialogCard);
+        TextView nameDialog = dialog.findViewById(R.id.name_dialogCard);
+        TextView phoneNum1Dialog = dialog.findViewById(R.id.phoneNum1_dialogCard);
+        TextView phoneNum2Dialog = dialog.findViewById(R.id.phoneNum2_dialogCard);
+        TextView faxDialog = dialog.findViewById(R.id.fax_dialogCard);
+        TextView emailDialog = dialog.findViewById(R.id.email_dialogCard);
+        TextView companyDialog = dialog.findViewById(R.id.company_dialogCard);
+        TextView professionDialog = dialog.findViewById(R.id.profession_dialogCard);
+        TextView addressDialog = dialog.findViewById(R.id.address_dialogCard);
+        TextView webDialog = dialog.findViewById(R.id.web_dialogCard);
+        TextView facebookDialog = dialog.findViewById(R.id.facebook_dialogCard);
+        TextView twitterDialog = dialog.findViewById(R.id.twitter_dialogCard);
+        TextView instagramDialog = dialog.findViewById(R.id.instagram_dialogCard);
+
+        imageDialog.setImageResource(cardItemList.get(viewHolder.getAdapterPosition()).getImage());
+        nameDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getName());
+        phoneNum1Dialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getPhoneNum1());
+        phoneNum2Dialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getPhoneNum2());
+        faxDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getFax());
+        emailDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getEmail());
+        companyDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getCompany());
+        professionDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getProfession());
+        addressDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getAddress());
+        webDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getWeb());
+        facebookDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getFacebook());
+        twitterDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getTwitter());
+        instagramDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getInstagram());
+
+        if (phoneNum1Dialog.length() == 0) phoneNum1Dialog.setVisibility(View.GONE);
+        if (phoneNum2Dialog.length() == 0) phoneNum2Dialog.setVisibility(View.GONE);
+        if (faxDialog.length() == 0) faxDialog.setVisibility(View.GONE);
+        if (emailDialog.length() == 0) emailDialog.setVisibility(View.GONE);
+        if (companyDialog.length() == 0) companyDialog.setVisibility(View.GONE);
+        if (professionDialog.length() == 0) professionDialog.setVisibility(View.GONE);
+        if (addressDialog.length() == 0) addressDialog.setVisibility(View.GONE);
+        if (webDialog.length() == 0) webDialog.setVisibility(View.GONE);
+        if (facebookDialog.length() == 0) facebookDialog.setVisibility(View.GONE);
+        if (twitterDialog.length() == 0) twitterDialog.setVisibility(View.GONE);
+        if (instagramDialog.length() == 0) instagramDialog.setVisibility(View.GONE);
+
+        dialog.show();
+    }
+
     public class CardItemViewHolder extends RecyclerView.ViewHolder {
 
         private LinearLayout cardItem;
         private ImageView imageImgView;
-        private TextView personNameTxtView;
-        private TextView organisationNameTxtView;
+        private TextView nameTxtView;
+        private TextView companyTxtView;
 
         public CardItemViewHolder(@NonNull View itemView) {
             super(itemView);
             cardItem = itemView.findViewById(R.id.cardItem_linearLayout);
             imageImgView = itemView.findViewById(R.id.image_cardItemView);
-            personNameTxtView = itemView.findViewById(R.id.personName_cardItemView);
-            organisationNameTxtView = itemView.findViewById(R.id.organisationName_cardItemView);
+            nameTxtView = itemView.findViewById(R.id.name_cardItemView);
+            companyTxtView = itemView.findViewById(R.id.company_cardItemView);
         }
 
         public void bind(Card card) {
             imageImgView.setImageResource(card.getImage());
-            personNameTxtView.setText(card.getPersonName());
-            organisationNameTxtView.setText(card.getOrganisationName());
+            nameTxtView.setText(card.getName());
+            companyTxtView.setText(card.getCompany());
         }
     }
 }

@@ -7,13 +7,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:orientation="vertical"
         android:layout_marginTop="40dp"
-        android:gravity="center_horizontal">
+        android:background="@color/colorPrimary"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/personName_dialogCard"
+            android:id="@+id/name_dialogCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -27,138 +27,149 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/phoneNum1_dialogCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="phone1"
-                android:textSize="@dimen/dialog_text_size"
-                android:textColor="@android:color/black"
+                android:autoLink="phone"
                 android:drawableStart="@drawable/ic_phone"
                 android:drawablePadding="10dp"
+                android:linksClickable="true"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
-                android:autoLink="phone"
-                android:linksClickable="true"/>
+                android:text="phone1"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/dialog_text_size" />
 
             <TextView
+                android:id="@+id/phoneNum2_dialogCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="phone2"
-                android:textSize="@dimen/dialog_text_size"
-                android:textColor="@android:color/black"
+                android:autoLink="phone"
+                android:linksClickable="true"
+                android:paddingVertical="5dp"
                 android:paddingLeft="44dp"
                 android:paddingRight="10dp"
-                android:paddingVertical="5dp"
-                android:autoLink="phone"
-                android:linksClickable="true"/>
+                android:text="phone2"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/dialog_text_size" />
 
             <TextView
+                android:id="@+id/fax_dialogCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="fax"
-                android:textSize="@dimen/dialog_text_size"
-                android:textColor="@android:color/black"
+                android:autoLink="phone"
                 android:drawableStart="@drawable/ic_fax"
                 android:drawablePadding="10dp"
+                android:linksClickable="true"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
-                android:autoLink="phone"
-                android:linksClickable="true"/>
+                android:text="fax"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/dialog_text_size" />
 
             <TextView
+                android:id="@+id/email_dialogCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="email"
-                android:textSize="@dimen/dialog_text_size"
-                android:textColor="@android:color/black"
+                android:autoLink="email"
                 android:drawableStart="@drawable/ic_email"
                 android:drawablePadding="10dp"
+                android:linksClickable="true"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
-                android:autoLink="email"
-                android:linksClickable="true"/>
+                android:text="email"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/dialog_text_size" />
 
             <TextView
+                android:id="@+id/company_dialogCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="web"
-                android:textSize="@dimen/dialog_text_size"
-                android:textColor="@android:color/black"
-                android:drawableStart="@drawable/ic_web"
-                android:drawablePadding="10dp"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"
-                android:autoLink="web"
-                android:linksClickable="true"/>
-
-            <TextView
-                android:id="@+id/organisationName_dialogCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="organisation"
-                android:textSize="@dimen/dialog_text_size"
-                android:textColor="@android:color/black"
                 android:drawableStart="@drawable/ic_organisation"
                 android:drawablePadding="10dp"
                 android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"/>
+                android:paddingVertical="5dp"
+                android:text="company"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/dialog_text_size" />
 
             <TextView
+                android:id="@+id/profession_dialogCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="position"
-                android:textSize="@dimen/dialog_text_size"
+                android:drawableStart="@drawable/ic_profession"
+                android:drawablePadding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="profession"
                 android:textColor="@android:color/black"
-                android:paddingLeft="44dp"
-                android:paddingRight="10dp"
-                android:paddingVertical="5dp" />
+                android:textSize="@dimen/dialog_text_size" />
 
             <TextView
+                android:id="@+id/address_dialogCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="adress"
-                android:textSize="@dimen/dialog_text_size"
-                android:textColor="@android:color/black"
                 android:drawableStart="@drawable/ic_addres"
                 android:drawablePadding="10dp"
                 android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp" />
+                android:paddingVertical="5dp"
+                android:text="adress"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/dialog_text_size" />
 
             <TextView
+                android:id="@+id/web_dialogCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="facebook"
-                android:textSize="@dimen/dialog_text_size"
+                android:autoLink="web"
+                android:drawableStart="@drawable/ic_web"
+                android:drawablePadding="10dp"
+                android:linksClickable="true"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="web"
                 android:textColor="@android:color/black"
+                android:textSize="@dimen/dialog_text_size" />
+
+            <TextView
+                android:id="@+id/facebook_dialogCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_facebook"
                 android:drawablePadding="10dp"
                 android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"/>
+                android:paddingVertical="5dp"
+                android:text="facebook"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/dialog_text_size" />
 
             <TextView
+                android:id="@+id/twitter_dialogCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="twitter"
-                android:textSize="@dimen/dialog_text_size"
-                android:textColor="@android:color/black"
                 android:drawableStart="@drawable/ic_twitter"
                 android:drawablePadding="10dp"
                 android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"/>
+                android:paddingVertical="5dp"
+                android:text="twitter"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/dialog_text_size" />
 
             <TextView
+                android:id="@+id/instagram_dialogCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="instagram"
-                android:textSize="@dimen/dialog_text_size"
-                android:textColor="@android:color/black"
                 android:drawableStart="@drawable/ic_instagram"
                 android:drawablePadding="10dp"
                 android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"/>
+                android:paddingVertical="5dp"
+                android:text="instagram"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/dialog_text_size" />
 
         </LinearLayout>
     </LinearLayout>
