@@ -9,13 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.melnichuk.businesscardsapp.R;
-import com.melnichuk.businesscardsapp.adapter.CardItemAdapter;
+import com.melnichuk.businesscardsapp.adapter.RealmCardItemAdapter;
 import com.melnichuk.businesscardsapp.pojo.Card;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.OrderedRealmCollection;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class ExampleFragment extends Fragment {
 
@@ -37,8 +42,9 @@ public class ExampleFragment extends Fragment {
     private void initRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.fragment_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        initCardList();
-        recyclerView.setAdapter(new CardItemAdapter(cardList));
+//        initCardList();
+//        recyclerView.setAdapter(new CardItemAdapter(getCardList()));
+        recyclerView.setAdapter(new RealmCardItemAdapter(getCardList(), true));
     }
 
     private void initCardList() {
@@ -71,5 +77,35 @@ public class ExampleFragment extends Fragment {
                 null,
                 null
         ));
+    }
+
+    private OrderedRealmCollection<Card> getCardList(){
+        Realm realm = Realm.getDefaultInstance();
+//        realm.executeTransactionAsync(new Realm.Transaction() {
+//            @Override
+//            public void execute(Realm realm) {
+//                Card card = realm.createObject(Card.class);
+//                card.setName("dima");
+//                card.setCompany("DNMU");
+//                card.setInstagram("@instagram_lol");
+//            }
+//        }, new Realm.Transaction.OnSuccess() {
+//            @Override
+//            public void onSuccess() {
+//                Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+//            }
+//        }, new Realm.Transaction.OnError() {
+//            @Override
+//            public void onError(Throwable error) {
+//                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+
+        RealmResults<Card> cardList = realm.where(Card.class).findAll();
+
+        //realm.close();
+
+        return cardList;
     }
 }

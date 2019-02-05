@@ -1,6 +1,8 @@
 package com.melnichuk.businesscardsapp.pojo;
 
-public class Card {
+import io.realm.RealmObject;
+
+public class Card extends RealmObject {
 
     private int image;
     private String name;
