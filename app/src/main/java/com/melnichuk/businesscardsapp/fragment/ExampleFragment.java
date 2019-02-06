@@ -23,7 +23,6 @@ public class ExampleFragment extends Fragment {
     private static final int LAYOUT = R.layout.fragment_example;
 
     private Realm realm;
-    private RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -43,7 +42,7 @@ public class ExampleFragment extends Fragment {
     }
 
     private void initRecyclerView(View view) {
-        recyclerView = view.findViewById(R.id.fragment_recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.fragment_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new RealmCardItemAdapter(getCardList(), true));
     }
