@@ -1,9 +1,13 @@
 package com.melnichuk.businesscardsapp;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -20,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int LAYOUT = R.layout.activity_main;
 
+    private Toolbar toolbar;
+
     private Realm realm;
 
     @Override
@@ -32,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         initToolbar();
         initTabs();
+        initNavigationView();
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -70,12 +77,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
         toolbar.inflateMenu(R.menu.menu);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(MainActivity.this, "Search", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -93,5 +101,30 @@ public class MainActivity extends AppCompatActivity {
         // setup
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void initNavigationView(){
+        final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.openNavigation, R.string.closeNavigation);
+        toggle.syncState();
+        toggle.setDrawerSlideAnimationEnabled(false);
+        drawerLayout.addDrawerListener(toggle);
+
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                drawerLayout.closeDrawers();
+                switch (menuItem.getItemId()){
+                    case R.id.mycard_menu:
+                        Toast.makeText(MainActivity.this, "My card", Toast.LENGTH_SHORT).show();
+                    case R.id.settings_menu:
+                        Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
     }
 }

@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">BusinessCardsApp</string>
-    <string name="settingsToolbarButton">Налаштування</string>
+    <string name="settingsToolbarButton">Пошук</string>
 
     <string name="cardsTabTitle">Візитки</string>
     <string name="myCardsTabTitle">Мої візитки</string>
 
+    <string name="openNavigation">Відкрити</string>
+    <string name="closeNavigation">Закрити</string>
+
+    <string name="myCardMenu">Моя візитка</string>
+    <string name="settingsMenu">Налашування</string>
 </resources>
