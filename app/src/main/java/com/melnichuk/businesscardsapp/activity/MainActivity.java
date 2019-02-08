@@ -1,5 +1,6 @@
-package com.melnichuk.businesscardsapp;
+package com.melnichuk.businesscardsapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.adapter.TabsFragmentAdapter;
 import com.melnichuk.businesscardsapp.fragment.ExampleFragment;
 import com.melnichuk.businesscardsapp.pojo.Card;
@@ -118,8 +120,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 drawerLayout.closeDrawers();
                 switch (menuItem.getItemId()){
-                    case R.id.mycard_menu:
-                        Toast.makeText(MainActivity.this, "My card", Toast.LENGTH_SHORT).show();
+                    case R.id.myCard_menu:
+                        Intent intent = new Intent(MainActivity.this, MyCardActivity.class);
+                        startActivity(intent);
                     case R.id.settings_menu:
                         Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                 }

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.MyCardActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_myCard"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/myCard_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_myCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:src="@mipmap/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/myCard_smallPadding"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/firstName_myCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/myCard_padding"
+                        android:hint="@string/firstName_myCard"
+                        android:inputType="textCapWords"
+                        android:textSize="@dimen/dialog_text_size" />
+
+                    <EditText
+                        android:id="@+id/patronymic_myCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/myCard_padding"
+                        android:hint="@string/patronymic_myCard"
+                        android:inputType="textCapWords"
+                        android:textSize="@dimen/dialog_text_size" />
+
+                    <EditText
+                        android:id="@+id/lastName_myCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/myCard_padding"
+                        android:hint="@string/lastName_myCard"
+                        android:inputType="textCapWords"
+                        android:textSize="@dimen/dialog_text_size" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/myCard_padding"
+                    android:src="@drawable/ic_phone"
+                    android:tint="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:layout_marginTop="@dimen/myCard_smallPadding"
+                    android:layout_marginBottom="@dimen/myCard_smallPadding"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/telNum1_myCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:hint="@string/telephone_myCard"
+                        android:inputType="phone"
+                        android:textSize="@dimen/dialog_text_size" />
+
+                    <EditText
+                        android:id="@+id/telNum2_myCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:hint="@string/telephone_myCard"
+                        android:inputType="phone"
+                        android:textSize="@dimen/dialog_text_size" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/myCard_padding"
+                    android:src="@drawable/ic_fax"
+                    android:tint="@color/colorPrimary" />
+
+                <EditText
+                    android:id="@+id/fax_myCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:hint="@string/fax_myCard"
+                    android:inputType="phone"
+                    android:textSize="@dimen/dialog_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/myCard_padding"
+                    android:src="@drawable/ic_email"
+                    android:tint="@color/colorPrimary" />
+
+                <EditText
+                    android:id="@+id/email_myCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:hint="@string/email_myCard"
+                    android:inputType="textEmailAddress"
+                    android:textSize="@dimen/dialog_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/myCard_padding"
+                    android:src="@drawable/ic_company"
+                    android:tint="@color/colorPrimary" />
+
+                <EditText
+                    android:id="@+id/company_myCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:hint="@string/company_myCard"
+                    android:inputType="textCapSentences"
+                    android:textSize="@dimen/dialog_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/myCard_padding"
+                    android:src="@drawable/ic_profession"
+                    android:tint="@color/colorPrimary" />
+
+                <EditText
+                    android:id="@+id/profession_myCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:hint="@string/profession_myCard"
+                    android:inputType="textCapSentences"
+                    android:textSize="@dimen/dialog_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/myCard_padding"
+                    android:src="@drawable/ic_address"
+                    android:tint="@color/colorPrimary" />
+
+                <EditText
+                    android:id="@+id/address_myCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:hint="@string/address_myCard"
+                    android:inputType="textCapSentences"
+                    android:textSize="@dimen/dialog_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/myCard_padding"
+                    android:src="@drawable/ic_web"
+                    android:tint="@color/colorPrimary" />
+
+                <EditText
+                    android:id="@+id/web_myCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:hint="@string/web_myCard"
+                    android:inputType="text"
+                    android:textSize="@dimen/dialog_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/myCard_padding"
+                    android:src="@drawable/ic_facebook"
+                    android:tint="@color/colorPrimary" />
+
+                <EditText
+                    android:id="@+id/facebook_myCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:hint="@string/facebook_myCard"
+                    android:inputType="text"
+                    android:textSize="@dimen/dialog_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/myCard_padding"
+                    android:src="@drawable/ic_twitter"
+                    android:tint="@color/colorPrimary" />
+
+                <EditText
+                    android:id="@+id/twitter_myCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:hint="@string/twitter_myCard"
+                    android:inputType="text"
+                    android:textSize="@dimen/dialog_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/myCard_padding"
+                    android:src="@drawable/ic_instagram"
+                    android:tint="@color/colorPrimary" />
+
+                <EditText
+                    android:id="@+id/instagram_myCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:hint="@string/instagram_myCard"
+                    android:inputType="text"
+                    android:textSize="@dimen/dialog_text_size" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

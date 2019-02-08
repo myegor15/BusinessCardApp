@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BusinessCardsApp</string>
-    <string name="settingsToolbarButton">Пошук</string>
+    <string name="find_toolbarButton">Пошук</string>
 
     <string name="cardsTabTitle">Візитки</string>
     <string name="myCardsTabTitle">Мої візитки</string>
@@ -10,4 +10,20 @@
 
     <string name="myCardMenu">Моя візитка</string>
     <string name="settingsMenu">Налашування</string>
+
+    <!--MyCardActivity-->
+    <string name="firstName_myCard">Ім\'я</string>
+    <string name="patronymic_myCard">По батькові</string>
+    <string name="lastName_myCard">Прізвице</string>
+    <string name="telephone_myCard">Телефон</string>
+    <string name="fax_myCard">Факс</string>
+    <string name="email_myCard">Email</string>
+    <string name="company_myCard">Органцізація</string>
+    <string name="profession_myCard">Посада/професія</string>
+    <string name="address_myCard">Адреса</string>
+    <string name="web_myCard">Веб-сайт</string>
+    <string name="facebook_myCard">Facebook</string>
+    <string name="twitter_myCard">Twitter</string>
+    <string name="instagram_myCard">Instagram</string>
+    <string name="save_toolbarMyCardButton">Зберегти</string>
 </resources>

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/search_menu"
-        android:title="@string/find_toolbarButton"
+        android:id="@+id/save_menu"
+        android:title="@string/save_toolbarMyCardButton"
         android:orderInCategory="1"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/ic_ok"
         app:showAsAction="ifRoom"/>
 
 </menu>
