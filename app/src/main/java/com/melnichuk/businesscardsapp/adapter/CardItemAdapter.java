@@ -73,7 +73,7 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.CardIt
         TextView instagramDialog = dialog.findViewById(R.id.instagram_dialogCard);
 
         imageDialog.setImageResource(cardItemList.get(viewHolder.getAdapterPosition()).getImage());
-        nameDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getName());
+        nameDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getFirstName());
         phoneNum1Dialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getPhoneNum1());
         phoneNum2Dialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getPhoneNum2());
         faxDialog.setText(cardItemList.get(viewHolder.getAdapterPosition()).getFax());
@@ -118,7 +118,7 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.CardIt
 
         public void bind(Card card) {
             imageImgView.setImageResource(card.getImage());
-            nameTxtView.setText(card.getName());
+            nameTxtView.setText(card.getFirstName());
             companyTxtView.setText(card.getCompany());
         }
     }

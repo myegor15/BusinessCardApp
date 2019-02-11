@@ -33,10 +33,10 @@ public class CardDialog extends DialogFragment {
     private TextView twitter;
     private TextView instagram;
 
-    private Card data;
+    private Card card;
 
-    public void setData(Card data) {
-        this.data = data;
+    public void setCard(Card card) {
+        this.card = card;
     }
 
     @Nullable
@@ -70,19 +70,21 @@ public class CardDialog extends DialogFragment {
     }
 
     private void setInformation() {
-        image.setImageResource(data.getImage());
-        name.setText(data.getName());
-        phoneNum1.setText(data.getPhoneNum1());
-        phoneNum2.setText(data.getPhoneNum2());
-        fax.setText(data.getFax());
-        email.setText(data.getEmail());
-        company.setText(data.getCompany());
-        profession.setText(data.getProfession());
-        address.setText(data.getAddress());
-        web.setText(data.getWeb());
-        facebook.setText(data.getFacebook());
-        twitter.setText(data.getTwitter());
-        instagram.setText(data.getInstagram());
+        image.setImageResource(card.getImage());
+        name.setText(card.getFirstName() +
+                (card.getPatronymic() != null ? " " + card.getPatronymic() : "") +
+                (card.getLastName() != null ? " " + card.getLastName() : ""));
+        phoneNum1.setText(card.getPhoneNum1());
+        phoneNum2.setText(card.getPhoneNum2());
+        fax.setText(card.getFax());
+        email.setText(card.getEmail());
+        company.setText(card.getCompany());
+        profession.setText(card.getProfession());
+        address.setText(card.getAddress());
+        web.setText(card.getWeb());
+        facebook.setText(card.getFacebook());
+        twitter.setText(card.getTwitter());
+        instagram.setText(card.getInstagram());
     }
 
     private void setInformationVisibility() {

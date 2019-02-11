@@ -20,6 +20,8 @@ import com.melnichuk.businesscardsapp.adapter.TabsFragmentAdapter;
 import com.melnichuk.businesscardsapp.fragment.ExampleFragment;
 import com.melnichuk.businesscardsapp.pojo.Card;
 
+import java.util.Random;
+
 import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,15 +49,18 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Realm realm = Realm.getDefaultInstance();
                 realm.executeTransactionAsync(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
-                        Card card = realm.createObject(Card.class);
-                        card.setName("yegoe");
+                        Card card = new Card();
+                        card.setId(new Random().nextInt());
+                        card.setFirstName("yegor");
+                        card.setLastName("sgag");
+                        card.setPatronymic("dfsh");
                         card.setCompany("ONPU");
                         card.setEmail("myegor15@gmail.com");
                         card.setInstagram("@instagram_lol");
+                        realm.copyToRealmOrUpdate(card);
                     }
                 }, new Realm.Transaction.OnSuccess() {
                     @Override
@@ -114,19 +119,20 @@ public class MainActivity extends AppCompatActivity {
         toggle.setDrawerSlideAnimationEnabled(false);
         drawerLayout.addDrawerListener(toggle);
 
-        NavigationView navigationView = findViewById(R.id.navigationView);
+        final NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                drawerLayout.closeDrawers();
+                drawerLayout.closeDrawer(navigationView);
                 switch (menuItem.getItemId()){
                     case R.id.myCard_menu:
-                        Intent intent = new Intent(MainActivity.this, MyCardActivity.class);
-                        startActivity(intent);
+                        startActivity(new Intent(MainActivity.this, MyCardActivity.class));
+                        break;
                     case R.id.settings_menu:
                         Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                 }
-                return true;
+
+                return false;
             }
         });
     }

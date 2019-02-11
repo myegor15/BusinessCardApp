@@ -45,7 +45,7 @@ public class RealmCardItemAdapter extends RealmRecyclerViewAdapter<Card, RealmCa
             @Override
             public void onClick(View v) {
                 CardDialog dialog = new CardDialog();
-                dialog.setData(getData().get(viewHolder.getAdapterPosition()));
+                dialog.setCard(getData().get(viewHolder.getAdapterPosition()));
                 dialog.show(((FragmentActivity)viewGroup.getContext()).getSupportFragmentManager(), "CardDialog");
             }
         };
@@ -56,22 +56,26 @@ public class RealmCardItemAdapter extends RealmRecyclerViewAdapter<Card, RealmCa
     public static class CardItemViewHolder extends RecyclerView.ViewHolder {
 
         private LinearLayout cardItem;
-        private ImageView imageImgView;
-        private TextView nameTxtView;
-        private TextView companyTxtView;
+        private ImageView image;
+        private TextView name;
+        private TextView company;
 
         public CardItemViewHolder(@NonNull View itemView) {
             super(itemView);
             cardItem = itemView.findViewById(R.id.cardItem_linearLayout);
-            imageImgView = itemView.findViewById(R.id.image_cardItemView);
-            nameTxtView = itemView.findViewById(R.id.name_cardItemView);
-            companyTxtView = itemView.findViewById(R.id.company_cardItemView);
+            image = itemView.findViewById(R.id.image_cardItemView);
+            name = itemView.findViewById(R.id.name_cardItemView);
+            company = itemView.findViewById(R.id.company_cardItemView);
         }
 
         public void bind(Card card) {
-            imageImgView.setImageResource(card.getImage());
-            nameTxtView.setText(card.getName());
-            companyTxtView.setText(card.getCompany());
+            image.setImageResource(card.getImage());
+            name.setText(card.getFirstName() +
+                    (card.getPatronymic() != null ? " " + card.getPatronymic() : "") +
+                    (card.getLastName() != null ? " " + card.getLastName() : ""));
+            company.setText(card.getCompany());
+
+            if (company.length() == 0) company.setVisibility(View.GONE);
         }
     }
 }

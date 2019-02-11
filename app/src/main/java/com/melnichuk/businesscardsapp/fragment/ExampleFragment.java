@@ -48,7 +48,7 @@ public class ExampleFragment extends Fragment {
     }
 
     private OrderedRealmCollection<Card> getCardList(){
-        RealmResults<Card> cardList = realm.where(Card.class).findAll();
+        RealmResults<Card> cardList = realm.where(Card.class).notEqualTo("id", 0).findAll();
         return cardList;
     }
 }

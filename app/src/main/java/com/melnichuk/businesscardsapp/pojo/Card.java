@@ -1,11 +1,17 @@
 package com.melnichuk.businesscardsapp.pojo;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Card extends RealmObject {
 
+    @PrimaryKey
+    private int id;
+
     private int image;
-    private String name;
+    private String firstName;
+    private String patronymic;
+    private String lastName;
     private String phoneNum1;
     private String phoneNum2;
     private String fax;
@@ -21,33 +27,12 @@ public class Card extends RealmObject {
     public Card() {
     }
 
-    public Card(String name, String company) {
-        this.name = name;
-        this.company = company;
+    public int getId() {
+        return id;
     }
 
-    public Card(int image, String name, String company) {
-        this.image = image;
-        this.name = name;
-        this.company = company;
-    }
-
-    public Card(int image, String name, String phoneNum1, String phoneNum2,
-                String fax, String email, String company, String profession,
-                String address, String web, String facebook, String twitter, String instagram) {
-        this.image = image;
-        this.name = name;
-        this.phoneNum1 = phoneNum1;
-        this.phoneNum2 = phoneNum2;
-        this.fax = fax;
-        this.email = email;
-        this.company = company;
-        this.profession = profession;
-        this.address = address;
-        this.web = web;
-        this.facebook = facebook;
-        this.twitter = twitter;
-        this.instagram = instagram;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getImage() {
@@ -58,12 +43,28 @@ public class Card extends RealmObject {
         this.image = image;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPhoneNum1() {
