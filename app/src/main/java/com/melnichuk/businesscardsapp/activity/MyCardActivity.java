@@ -82,20 +82,20 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
                 phoneNum1.getText().toString().trim().length() != 0) {
             final Card card = new Card();
             card.setId(0);
-            card.setFirstName(firstName.getText().toString().trim());
-            card.setPatronymic(patronymic.getText().toString().trim());
-            card.setLastName(lastName.getText().toString().trim());
-            card.setPhoneNum1(phoneNum1.getText().toString().trim());
-            card.setPhoneNum2(phoneNum2.getText().toString().trim());
-            card.setFax(fax.getText().toString().trim());
-            card.setEmail(email.getText().toString().trim());
-            card.setCompany(company.getText().toString().trim());
-            card.setProfession(profession.getText().toString().trim());
-            card.setAddress(address.getText().toString().trim());
-            card.setWeb(web.getText().toString().trim());
-            card.setFacebook(facebook.getText().toString().trim());
-            card.setTwitter(twitter.getText().toString().trim());
-            card.setInstagram(instagram.getText().toString().trim());
+            card.setFirstName(getInfo(firstName));
+            card.setPatronymic(getInfo(patronymic));
+            card.setLastName(getInfo(lastName));
+            card.setPhoneNum1(getInfo(phoneNum1));
+            card.setPhoneNum2(getInfo(phoneNum2));
+            card.setFax(getInfo(fax));
+            card.setEmail(getInfo(email));
+            card.setCompany(getInfo(company));
+            card.setProfession(getInfo(profession));
+            card.setAddress(getInfo(address));
+            card.setWeb(getInfo(web));
+            card.setFacebook(getInfo(facebook));
+            card.setTwitter(getInfo(twitter));
+            card.setInstagram(getInfo(instagram));
 
             realm.executeTransactionAsync(new Realm.Transaction() {
                 @Override
@@ -147,6 +147,16 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
             facebook.setText(card.getFacebook());
             twitter.setText(card.getTwitter());
             instagram.setText(card.getInstagram());
+        }
+    }
+
+    private String getInfo(EditText editText){
+        String text = editText.getText().toString().trim();
+        if(text.length() == 0) {
+            return null;
+        }
+        else {
+            return text;
         }
     }
 }
