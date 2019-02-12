@@ -18,9 +18,9 @@ import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class ExampleFragment extends Fragment {
+public class AllCardsFragment extends Fragment {
 
-    private static final int LAYOUT = R.layout.fragment_example;
+    private static final int LAYOUT = R.layout.fragment_all_cards;
 
     private Realm realm;
 

@@ -17,7 +17,8 @@ import android.widget.Toast;
 
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.adapter.TabsFragmentAdapter;
-import com.melnichuk.businesscardsapp.fragment.ExampleFragment;
+import com.melnichuk.businesscardsapp.fragment.AllCardsFragment;
+import com.melnichuk.businesscardsapp.fragment.ShareMyCardFragment;
 import com.melnichuk.businesscardsapp.pojo.Card;
 
 import java.util.Random;
@@ -102,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
         // adding fragments
         TabsFragmentAdapter adapter = new TabsFragmentAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ExampleFragment(), getString(R.string.cardsTabTitle));
-        adapter.addFragment(new ExampleFragment(), getString(R.string.myCardsTabTitle));
+        adapter.addFragment(new AllCardsFragment(), getString(R.string.cardsTabTitle));
+        adapter.addFragment(new ShareMyCardFragment(), getString(R.string.myCardsTabTitle));
 
         // setup
         viewPager.setAdapter(adapter);
