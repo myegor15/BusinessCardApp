@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,7 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.melnichuk.businesscardsapp.R;
-import com.melnichuk.businesscardsapp.adapter.TabsFragmentAdapter;
+import com.melnichuk.businesscardsapp.adapter.CardsFragmentAdapter;
 import com.melnichuk.businesscardsapp.fragment.AllCardsFragment;
 import com.melnichuk.businesscardsapp.fragment.ShareMyCardFragment;
 import com.melnichuk.businesscardsapp.pojo.Card;
@@ -98,17 +97,70 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTabs() {
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        ViewPager viewPager = findViewById(R.id.viewPager);
+        final ViewPager viewPager = findViewById(R.id.viewPager);
 
         // adding fragments
-        TabsFragmentAdapter adapter = new TabsFragmentAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AllCardsFragment(), getString(R.string.cardsTabTitle));
-        adapter.addFragment(new ShareMyCardFragment(), getString(R.string.myCardsTabTitle));
+        CardsFragmentAdapter adapter = new CardsFragmentAdapter(getSupportFragmentManager());
+        adapter.addFragment(new AllCardsFragment());
+        adapter.addFragment(new ShareMyCardFragment());
 
         // setup
         viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
+
+//
+//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int i, float v, int i1) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int i) {
+//                if (i == 0) {
+//                    fab.show();
+//                } else {
+//                    fab.hide();
+//                }
+////                switch (i){
+////                    case 0:
+////                        fab.show();
+////                        break;
+////                        default:
+////                            fab.hide();
+////                            break;
+////                }
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int i) {
+////                switch (i){
+////                    case ViewPager.SCROLL_STATE_IDLE:
+////                        fab.show();
+////                        break;
+////                    case ViewPager.SCROLL_STATE_DRAGGING:
+//////                        fab.hide();
+//////                        break;
+////                    case ViewPager.SCROLL_STATE_SETTLING:
+////                        fab.hide();
+////                        break;
+////                }
+//
+////                switch (i) {
+////                    case ViewPager.SCROLL_STATE_DRAGGING:
+////                        fab.hide(); // Hide animation
+////                        break;
+////                    case ViewPager.SCROLL_STATE_IDLE:
+////                        switch (viewPager.getCurrentItem()) {
+////                            case 0:
+////                                fab.show(); // Hide animation
+////                                break;
+////                            default:
+////                                fab.hide(); // Hide animation
+////                                break;
+////                        }
+////                }
+//            }
+//        });
     }
 
     private void initNavigationView(){

@@ -2,9 +2,6 @@
     <string name="app_name">BusinessCardsApp</string>
     <string name="find_toolbarButton">Пошук</string>
 
-    <string name="cardsTabTitle">Візитки</string>
-    <string name="myCardsTabTitle">Мої візитки</string>
-
     <string name="openNavigation">Відкрити</string>
     <string name="closeNavigation">Закрити</string>
 

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
@@ -44,15 +45,15 @@ public class ShareMyCardFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        realm.close();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         initQrCode();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        realm.close();
     }
 
     private void initQrCode(){
@@ -63,12 +64,12 @@ public class ShareMyCardFragment extends Fragment {
 
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
             try {
-                BitMatrix bitMatrix = multiFormatWriter.encode(myCard2Qr, BarcodeFormat.QR_CODE, 200, 200);
+                BitMatrix bitMatrix = multiFormatWriter.encode(myCard2Qr, BarcodeFormat.QR_CODE, 500, 500);
                 BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                 Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
                 qrCode.setImageBitmap(bitmap);
             } catch (WriterException e) {
-                e.printStackTrace();
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         } else {
             //добавить надпись о незаполненой своей карты
