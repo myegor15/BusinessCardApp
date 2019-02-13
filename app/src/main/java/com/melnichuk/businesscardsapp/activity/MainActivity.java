@@ -3,6 +3,7 @@ package com.melnichuk.businesscardsapp.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.ViewPager;
@@ -14,13 +15,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.adapter.CardsFragmentAdapter;
+import com.melnichuk.businesscardsapp.dialog.CardDialog;
 import com.melnichuk.businesscardsapp.fragment.AllCardsFragment;
 import com.melnichuk.businesscardsapp.fragment.ShareMyCardFragment;
 import com.melnichuk.businesscardsapp.pojo.Card;
-
-import java.util.Random;
 
 import io.realm.Realm;
 
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private Realm realm;
+    private Card card;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,40 +46,53 @@ public class MainActivity extends AppCompatActivity {
         setContentView(LAYOUT);
 
         initToolbar();
-        initTabs();
+        initViewPager();
         initNavigationView();
-
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                realm.executeTransactionAsync(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        Card card = new Card();
-                        card.setId(new Random().nextInt());
-                        card.setFirstName("yegor");
-                        card.setLastName("sgag");
-                        card.setPatronymic("dfsh");
-                        card.setCompany("ONPU");
-                        card.setEmail("myegor15@gmail.com");
-                        card.setInstagram("@instagram_lol");
-                        realm.copyToRealmOrUpdate(card);
-                    }
-                }, new Realm.Transaction.OnSuccess() {
-                    @Override
-                    public void onSuccess() {
-                        Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
-                    }
-                }, new Realm.Transaction.OnError() {
-                    @Override
-                    public void onError(Throwable error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                initScan();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (card != null) {
+            CardDialog dialog = new CardDialog();
+            dialog.setCard(card);
+            dialog.show(getSupportFragmentManager(), "dialog");
+            card = null;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+                Toast.makeText(this, "You canceled the scanning", Toast.LENGTH_SHORT).show();
+            } else {
+                try {
+                    Gson gson = new Gson();
+                    card = gson.fromJson(result.getContents(), Card.class);
+//                    card.setId(new Random().nextInt());
+//                    realm.executeTransactionAsync(new Realm.Transaction() {
+//                        @Override
+//                        public void execute(Realm realm) {
+//                            realm.copyToRealm(card);
+//                        }
+//                    });
+                } catch (JsonSyntaxException e){
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -96,17 +114,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initTabs() {
+    private void initViewPager() {
         final ViewPager viewPager = findViewById(R.id.viewPager);
 
-        // adding fragments
         CardsFragmentAdapter adapter = new CardsFragmentAdapter(getSupportFragmentManager());
         adapter.addFragment(new AllCardsFragment());
         adapter.addFragment(new ShareMyCardFragment());
 
-        // setup
         viewPager.setAdapter(adapter);
-
 //
 //        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 //            @Override
@@ -184,9 +199,18 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.settings_menu:
                         Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                 }
-
                 return false;
             }
         });
+    }
+
+    private void initScan() {
+        IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+        integrator.setPrompt("Scan");
+        integrator.setCameraId(0);
+        integrator.setBeepEnabled(false);
+        integrator.setBarcodeImageEnabled(false);
+        integrator.initiateScan();
     }
 }

@@ -39,7 +39,7 @@ public class ShareMyCardFragment extends Fragment {
 
         qrCode = view.findViewById(R.id.qrCode_myCard);
 
-        initQrCode();
+        //initQrCode();
 
         return view;
     }
