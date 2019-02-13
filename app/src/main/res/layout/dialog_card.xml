@@ -172,9 +172,21 @@
                 android:textSize="@dimen/dialog_text_size" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/save_dialogCard"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_save"
+            android:background="@color/colorPrimary"
+            android:text="Зберегти"
+            android:textAlignment="textStart"
+            android:drawablePadding="16dp"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_dialogCard"
         android:layout_width="80dp"
         android:layout_height="80dp"

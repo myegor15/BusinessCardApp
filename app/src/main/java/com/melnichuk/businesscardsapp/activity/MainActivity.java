@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         if (card != null) {
             CardDialog dialog = new CardDialog();
             dialog.setCard(card);
+            dialog.showSaveButton();
             dialog.show(getSupportFragmentManager(), "dialog");
             card = null;
         }

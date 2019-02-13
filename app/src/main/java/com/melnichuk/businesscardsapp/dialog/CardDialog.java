@@ -9,13 +9,17 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.pojo.Card;
 
-public class CardDialog extends DialogFragment {
+import io.realm.Realm;
+
+public class CardDialog extends DialogFragment implements View.OnClickListener {
 
     private static final int LAYOUT = R.layout.dialog_card;
 
@@ -32,11 +36,22 @@ public class CardDialog extends DialogFragment {
     private TextView facebook;
     private TextView twitter;
     private TextView instagram;
+    private Button save;
 
     private Card card;
+    private boolean saveButtonVisible;
+
+    public CardDialog() {
+        super();
+        this.saveButtonVisible = false;
+    }
 
     public void setCard(Card card) {
         this.card = card;
+    }
+
+    public void showSaveButton() {
+        this.saveButtonVisible = true;
     }
 
     @Nullable
@@ -46,14 +61,6 @@ public class CardDialog extends DialogFragment {
 
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        initInformation(view);
-        setInformation();
-        setInformationVisibility();
-
-        return view;
-    }
-
-    private void initInformation(View view) {
         image = view.findViewById(R.id.image_dialogCard);
         name = view.findViewById(R.id.name_dialogCard);
         phoneNum1 = view.findViewById(R.id.phoneNum1_dialogCard);
@@ -67,9 +74,16 @@ public class CardDialog extends DialogFragment {
         facebook = view.findViewById(R.id.facebook_dialogCard);
         twitter = view.findViewById(R.id.twitter_dialogCard);
         instagram = view.findViewById(R.id.instagram_dialogCard);
+        save = view.findViewById(R.id.save_dialogCard);
+
+        initInformation();
+        setInformationVisibility();
+        initSaveButton();
+
+        return view;
     }
 
-    private void setInformation() {
+    private void initInformation() {
         image.setImageResource(card.getImage());
         name.setText(card.getFirstName() +
                 (card.getPatronymic() != null ? " " + card.getPatronymic() : "") +
@@ -99,5 +113,45 @@ public class CardDialog extends DialogFragment {
         if (facebook.length() == 0) facebook.setVisibility(View.GONE);
         if (twitter.length() == 0) twitter.setVisibility(View.GONE);
         if (instagram.length() == 0) instagram.setVisibility(View.GONE);
+    }
+
+    private void initSaveButton() {
+        if (saveButtonVisible) {
+            save.setVisibility(View.VISIBLE);
+            save.setOnClickListener(this);
+        } else {
+            save.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            if(card != null) {
+                Number maxId = realm.where(Card.class).max("id");
+                int nextId = (maxId == null) ? 1 : maxId.intValue() + 1;
+                card.setId(nextId);
+                realm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        realm.copyToRealm(card);
+                    }
+                }, new Realm.Transaction.OnSuccess() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getContext(), "Збережено", Toast.LENGTH_SHORT).show();
+                    }
+                }, new Realm.Transaction.OnError() {
+                    @Override
+                    public void onError(Throwable error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                getDialog().cancel();
+            }
+        } finally {
+            realm.close();
+        }
     }
 }
