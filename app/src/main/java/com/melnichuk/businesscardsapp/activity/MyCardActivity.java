@@ -1,8 +1,13 @@
 package com.melnichuk.businesscardsapp.activity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -11,12 +16,16 @@ import android.widget.Toast;
 
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.pojo.Card;
+import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayOutputStream;
 
 import io.realm.Realm;
 
 public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener {
 
     private static final int LAYOUT = R.layout.activity_my_card;
+    private static int RESULT_LOAD_IMAGE = 1;
 
     private ImageView image;
     private EditText firstName;
@@ -63,6 +72,24 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
         instagram = findViewById(R.id.instagram_myCard);
 
         initInformation();
+
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gallery = new Intent(
+                        Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallery, RESULT_LOAD_IMAGE);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
+                Picasso.get().load(data.getData()).resize(300, 300).centerCrop().into(image);
+        }
     }
 
     @Override
