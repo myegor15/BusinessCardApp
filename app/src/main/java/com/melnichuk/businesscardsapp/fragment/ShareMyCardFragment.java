@@ -13,12 +13,15 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.pojo.Card;
+
+import java.util.Hashtable;
 
 import io.realm.Realm;
 
@@ -63,8 +66,10 @@ public class ShareMyCardFragment extends Fragment {
             String myCard2Qr = gson.toJson(realm.copyFromRealm(myCard));
 
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+            Hashtable<EncodeHintType, String> hints = new Hashtable<>();
+            hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
             try {
-                BitMatrix bitMatrix = multiFormatWriter.encode(myCard2Qr, BarcodeFormat.QR_CODE, 500, 500);
+                BitMatrix bitMatrix = multiFormatWriter.encode(myCard2Qr, BarcodeFormat.QR_CODE, 500, 500, hints);
                 BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                 Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
                 qrCode.setImageBitmap(bitmap);
