@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
-    <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="dialog_text_size">18sp</dimen>
+    <dimen name="mainPadding">16dp</dimen>
+    <dimen name="mainPadding_small">4dp</dimen>
+    <dimen name="mainTextSize">18sp</dimen>
 
-    <dimen name="myCard_padding">16dp</dimen>
-    <dimen name="myCard_smallPadding">4dp</dimen>
+    <dimen name="fabMargin">16dp</dimen>
+
+    <!--dialog_card-->
+    <dimen name="cardDialog_padding">10dp</dimen>
+    <dimen name="cardDialog_phoneNum2Padding">34dp</dimen>
+    <dimen name="cardDialog_imageSize">80dp</dimen>
+    <dimen name="cardDialog_titleTextSize">20sp</dimen>
+    <dimen name="cardDialog_layoutWidth">320dp</dimen>
+
+    <!--card_item_dialog-->
+    <dimen name="cardItemView_imageSize">56dp</dimen>
+    <dimen name="cardItemView_companyTextSize">16sp</dimen>
+    <dimen name="navigationHeader_heightSize">164dp</dimen>
 
 </resources>

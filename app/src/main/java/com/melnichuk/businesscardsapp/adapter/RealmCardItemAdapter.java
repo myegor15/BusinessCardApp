@@ -69,7 +69,7 @@ public class RealmCardItemAdapter extends RealmRecyclerViewAdapter<Card, RealmCa
         }
 
         public void bind(Card card) {
-            image.setImageResource(card.getImage());
+//            image.setImageResource(card.getImage());
             name.setText(card.getFirstName() +
                     (card.getPatronymic() != null ? " " + card.getPatronymic() : "") +
                     (card.getLastName() != null ? " " + card.getLastName() : ""));

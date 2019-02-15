@@ -59,7 +59,7 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
 
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         image = view.findViewById(R.id.image_dialogCard);
         name = view.findViewById(R.id.name_dialogCard);
@@ -84,7 +84,7 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
     }
 
     private void initInformation() {
-        image.setImageResource(card.getImage());
+//        image.setImageResource(card.getImage());
         name.setText(card.getFirstName() +
                 (card.getPatronymic() != null ? " " + card.getPatronymic() : "") +
                 (card.getLastName() != null ? " " + card.getLastName() : ""));

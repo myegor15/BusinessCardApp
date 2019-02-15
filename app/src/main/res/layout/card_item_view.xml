@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="5dp">
+    android:padding="@dimen/mainPadding">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_cardItemView"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="@dimen/cardItemView_imageSize"
+        android:layout_height="@dimen/cardItemView_imageSize"
         android:layout_gravity="center"
         android:src="@mipmap/ic_launcher_round" />
 
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="@dimen/mainPadding"
         android:orientation="vertical">
 
         <TextView
@@ -25,8 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Мельничук Єгор Юрійович"
-            android:textColor="@android:color/black"
-            android:textSize="15sp"
+            android:textColor="@color/mainTextColor"
+            android:textSize="@dimen/mainTextSize"
             android:textStyle="bold" />
 
         <TextView
@@ -34,6 +34,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Одеський Національний Політехнічний Університет"
-            android:textSize="15sp" />
+            android:textSize="@dimen/cardItemView_companyTextSize" />
     </LinearLayout>
 </LinearLayout>

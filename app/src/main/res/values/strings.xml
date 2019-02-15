@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">BusinessCardsApp</string>
-    <string name="find_toolbarButton">Пошук</string>
 
     <string name="openNavigation">Відкрити</string>
     <string name="closeNavigation">Закрити</string>
 
+    <!--menu-->
+    <string name="find_toolbarButton">Пошук</string>
+
+    <!--menu_navigation-->
     <string name="myCardMenu">Моя візитка</string>
     <string name="settingsMenu">Налашування</string>
 
@@ -22,5 +25,9 @@
     <string name="facebook_myCard">Facebook</string>
     <string name="twitter_myCard">Twitter</string>
     <string name="instagram_myCard">Instagram</string>
-    <string name="save_toolbarMyCardButton">Зберегти</string>
+    <string name="save_myCardToolbarBtn">Зберегти</string>
+
+    <!--dialog_card-->
+    <string name="save_cardDialogBtn">Зберегти</string>
+
 </resources>

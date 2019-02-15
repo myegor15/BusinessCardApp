@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/myCard_padding">
+            android:padding="@dimen/mainPadding">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,36 +39,30 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/myCard_smallPadding"
+                    android:layout_marginBottom="@dimen/mainPadding_small"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <EditText
                         android:id="@+id/firstName_myCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/myCard_padding"
+                        style="@style/myCardEditTextStyle"
+                        android:layout_marginStart="@dimen/mainPadding"
                         android:hint="@string/firstName_myCard"
-                        android:inputType="textCapWords"
-                        android:textSize="@dimen/dialog_text_size" />
+                        android:inputType="textCapWords" />
 
                     <EditText
                         android:id="@+id/patronymic_myCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/myCard_padding"
+                        style="@style/myCardEditTextStyle"
+                        android:layout_marginStart="@dimen/mainPadding"
                         android:hint="@string/patronymic_myCard"
-                        android:inputType="textCapWords"
-                        android:textSize="@dimen/dialog_text_size" />
+                        android:inputType="textCapWords" />
 
                     <EditText
                         android:id="@+id/lastName_myCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/myCard_padding"
+                        style="@style/myCardEditTextStyle"
+                        android:layout_marginStart="@dimen/mainPadding"
                         android:hint="@string/lastName_myCard"
-                        android:inputType="textCapWords"
-                        android:textSize="@dimen/dialog_text_size" />
+                        android:inputType="textCapWords" />
 
                 </LinearLayout>
 
@@ -80,37 +74,31 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/myCard_padding"
-                    android:src="@drawable/ic_phone"
-                    android:tint="@color/colorPrimary" />
+                    style="@style/myCardSmallImageViewStyle"
+                    android:layout_margin="@dimen/mainPadding"
+                    android:src="@drawable/ic_phone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/myCard_padding"
-                    android:layout_marginTop="@dimen/myCard_smallPadding"
-                    android:layout_marginBottom="@dimen/myCard_smallPadding"
+                    android:layout_marginStart="@dimen/mainPadding"
+                    android:layout_marginTop="@dimen/mainPadding_small"
+                    android:layout_marginBottom="@dimen/mainPadding_small"
                     android:orientation="vertical">
 
                     <EditText
                         android:id="@+id/telNum1_myCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/myCardEditTextStyle"
                         android:layout_gravity="center"
                         android:hint="@string/telephone_myCard"
-                        android:inputType="phone"
-                        android:textSize="@dimen/dialog_text_size" />
+                        android:inputType="phone" />
 
                     <EditText
                         android:id="@+id/telNum2_myCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/myCardEditTextStyle"
                         android:layout_gravity="center"
                         android:hint="@string/telephone_myCard"
-                        android:inputType="phone"
-                        android:textSize="@dimen/dialog_text_size" />
+                        android:inputType="phone" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -120,22 +108,18 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardSmallImageViewStyle"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/myCard_padding"
-                    android:src="@drawable/ic_fax"
-                    android:tint="@color/colorPrimary" />
+                    android:layout_margin="@dimen/mainPadding"
+                    android:src="@drawable/ic_fax" />
 
                 <EditText
                     android:id="@+id/fax_myCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardEditTextStyle"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:layout_marginStart="@dimen/mainPadding"
                     android:hint="@string/fax_myCard"
-                    android:inputType="phone"
-                    android:textSize="@dimen/dialog_text_size" />
+                    android:inputType="phone" />
             </LinearLayout>
 
             <LinearLayout
@@ -144,22 +128,18 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardSmallImageViewStyle"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/myCard_padding"
-                    android:src="@drawable/ic_email"
-                    android:tint="@color/colorPrimary" />
+                    android:layout_margin="@dimen/mainPadding"
+                    android:src="@drawable/ic_email" />
 
                 <EditText
                     android:id="@+id/email_myCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardEditTextStyle"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:layout_marginStart="@dimen/mainPadding"
                     android:hint="@string/email_myCard"
-                    android:inputType="textEmailAddress"
-                    android:textSize="@dimen/dialog_text_size" />
+                    android:inputType="textEmailAddress" />
             </LinearLayout>
 
             <LinearLayout
@@ -168,22 +148,18 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardSmallImageViewStyle"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/myCard_padding"
-                    android:src="@drawable/ic_company"
-                    android:tint="@color/colorPrimary" />
+                    android:layout_margin="@dimen/mainPadding"
+                    android:src="@drawable/ic_company" />
 
                 <EditText
                     android:id="@+id/company_myCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardEditTextStyle"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:layout_marginStart="@dimen/mainPadding"
                     android:hint="@string/company_myCard"
-                    android:inputType="textCapSentences"
-                    android:textSize="@dimen/dialog_text_size" />
+                    android:inputType="textCapSentences" />
             </LinearLayout>
 
             <LinearLayout
@@ -192,22 +168,18 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardSmallImageViewStyle"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/myCard_padding"
-                    android:src="@drawable/ic_profession"
-                    android:tint="@color/colorPrimary" />
+                    android:layout_margin="@dimen/mainPadding"
+                    android:src="@drawable/ic_profession" />
 
                 <EditText
                     android:id="@+id/profession_myCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardEditTextStyle"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:layout_marginStart="@dimen/mainPadding"
                     android:hint="@string/profession_myCard"
-                    android:inputType="textCapSentences"
-                    android:textSize="@dimen/dialog_text_size" />
+                    android:inputType="textCapSentences" />
             </LinearLayout>
 
             <LinearLayout
@@ -216,22 +188,18 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardSmallImageViewStyle"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/myCard_padding"
-                    android:src="@drawable/ic_address"
-                    android:tint="@color/colorPrimary" />
+                    android:layout_margin="@dimen/mainPadding"
+                    android:src="@drawable/ic_address" />
 
                 <EditText
                     android:id="@+id/address_myCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardEditTextStyle"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:layout_marginStart="@dimen/mainPadding"
                     android:hint="@string/address_myCard"
-                    android:inputType="textCapSentences"
-                    android:textSize="@dimen/dialog_text_size" />
+                    android:inputType="textCapSentences" />
             </LinearLayout>
 
             <LinearLayout
@@ -240,22 +208,18 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardSmallImageViewStyle"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/myCard_padding"
-                    android:src="@drawable/ic_web"
-                    android:tint="@color/colorPrimary" />
+                    android:layout_margin="@dimen/mainPadding"
+                    android:src="@drawable/ic_web" />
 
                 <EditText
                     android:id="@+id/web_myCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardEditTextStyle"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:layout_marginStart="@dimen/mainPadding"
                     android:hint="@string/web_myCard"
-                    android:inputType="text"
-                    android:textSize="@dimen/dialog_text_size" />
+                    android:inputType="text" />
             </LinearLayout>
 
             <LinearLayout
@@ -264,22 +228,18 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardSmallImageViewStyle"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/myCard_padding"
-                    android:src="@drawable/ic_facebook"
-                    android:tint="@color/colorPrimary" />
+                    android:layout_margin="@dimen/mainPadding"
+                    android:src="@drawable/ic_facebook" />
 
                 <EditText
                     android:id="@+id/facebook_myCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardEditTextStyle"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:layout_marginStart="@dimen/mainPadding"
                     android:hint="@string/facebook_myCard"
-                    android:inputType="text"
-                    android:textSize="@dimen/dialog_text_size" />
+                    android:inputType="text" />
             </LinearLayout>
 
             <LinearLayout
@@ -288,22 +248,18 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardSmallImageViewStyle"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/myCard_padding"
-                    android:src="@drawable/ic_twitter"
-                    android:tint="@color/colorPrimary" />
+                    android:layout_margin="@dimen/mainPadding"
+                    android:src="@drawable/ic_twitter" />
 
                 <EditText
                     android:id="@+id/twitter_myCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardEditTextStyle"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:layout_marginStart="@dimen/mainPadding"
                     android:hint="@string/twitter_myCard"
-                    android:inputType="text"
-                    android:textSize="@dimen/dialog_text_size" />
+                    android:inputType="text" />
             </LinearLayout>
 
             <LinearLayout
@@ -312,22 +268,18 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardSmallImageViewStyle"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/myCard_padding"
-                    android:src="@drawable/ic_instagram"
-                    android:tint="@color/colorPrimary" />
+                    android:layout_margin="@dimen/mainPadding"
+                    android:src="@drawable/ic_instagram" />
 
                 <EditText
                     android:id="@+id/instagram_myCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/myCardEditTextStyle"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/myCard_padding"
+                    android:layout_marginStart="@dimen/mainPadding"
                     android:hint="@string/instagram_myCard"
-                    android:inputType="text"
-                    android:textSize="@dimen/dialog_text_size" />
+                    android:inputType="text" />
             </LinearLayout>
 
         </LinearLayout>

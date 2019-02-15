@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/save_menu"
-        android:title="@string/save_toolbarMyCardButton"
+        android:title="@string/save_myCardToolbarBtn"
         android:orderInCategory="1"
         android:icon="@drawable/ic_ok"
         app:showAsAction="ifRoom"/>

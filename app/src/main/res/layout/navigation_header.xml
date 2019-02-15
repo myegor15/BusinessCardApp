@@ -3,7 +3,7 @@
     android:id="@+id/navigationHeader"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="164dp"
+    android:layout_height="@dimen/navigationHeader_heightSize"
     android:background="@color/colorPrimaryDark">
 
 </LinearLayout>
