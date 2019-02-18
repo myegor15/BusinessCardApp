@@ -206,12 +206,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initScan() {
-        IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
+        IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
-        integrator.setPrompt("Scan");
-        integrator.setCameraId(0);
+        integrator.setPrompt("Відскануйте QR Code");
         integrator.setBeepEnabled(false);
-        integrator.setBarcodeImageEnabled(false);
+//        integrator.setOrientationLocked(true);
+//        integrator.setCameraId(0);
+//        integrator.setBarcodeImageEnabled(false);
         integrator.initiateScan();
     }
 }

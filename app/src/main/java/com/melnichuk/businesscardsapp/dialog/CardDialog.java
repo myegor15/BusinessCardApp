@@ -1,7 +1,5 @@
 package com.melnichuk.businesscardsapp.dialog;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.pojo.Card;
@@ -38,6 +35,7 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
     private TextView instagram;
     private Button save;
 
+    private Realm realm;
     private Card card;
     private boolean saveButtonVisible;
 
@@ -77,7 +75,7 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
         save = view.findViewById(R.id.save_dialogCard);
 
         initInformation();
-        setInformationVisibility();
+//        setInformationVisibility();
         initSaveButton();
 
         return view;
@@ -88,31 +86,52 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
         name.setText(card.getFirstName() +
                 (card.getPatronymic() != null ? " " + card.getPatronymic() : "") +
                 (card.getLastName() != null ? " " + card.getLastName() : ""));
-        phoneNum1.setText(card.getPhoneNum1());
-        phoneNum2.setText(card.getPhoneNum2());
-        fax.setText(card.getFax());
-        email.setText(card.getEmail());
-        company.setText(card.getCompany());
-        profession.setText(card.getProfession());
-        address.setText(card.getAddress());
-        web.setText(card.getWeb());
-        facebook.setText(card.getFacebook());
-        twitter.setText(card.getTwitter());
-        instagram.setText(card.getInstagram());
+//        phoneNum1.setText(card.getPhoneNum1());
+//        phoneNum2.setText(card.getPhoneNum2());
+//        fax.setText(card.getFax());
+//        email.setText(card.getEmail());
+//        company.setText(card.getCompany());
+//        profession.setText(card.getProfession());
+//        address.setText(card.getAddress());
+//        web.setText(card.getWeb());
+//        facebook.setText(card.getFacebook());
+//        twitter.setText(card.getTwitter());
+//        instagram.setText(card.getInstagram());
+
+        setInformation(phoneNum1, card.getPhoneNum1());
+        setInformation(phoneNum2, card.getPhoneNum2());
+        setInformation(fax, card.getFax());
+        setInformation(email, card.getEmail());
+        setInformation(company, card.getCompany());
+        setInformation(profession, card.getProfession());
+        setInformation(address, card.getAddress());
+        setInformation(web, card.getWeb());
+        setInformation(facebook, card.getFacebook());
+        setInformation(twitter, card.getTwitter());
+        setInformation(instagram, card.getInstagram());
+
     }
 
-    private void setInformationVisibility() {
-        if (phoneNum1.length() == 0) phoneNum1.setVisibility(View.GONE);
-        if (phoneNum2.length() == 0) phoneNum2.setVisibility(View.GONE);
-        if (fax.length() == 0) fax.setVisibility(View.GONE);
-        if (email.length() == 0) email.setVisibility(View.GONE);
-        if (company.length() == 0) company.setVisibility(View.GONE);
-        if (profession.length() == 0) profession.setVisibility(View.GONE);
-        if (address.length() == 0) address.setVisibility(View.GONE);
-        if (web.length() == 0) web.setVisibility(View.GONE);
-        if (facebook.length() == 0) facebook.setVisibility(View.GONE);
-        if (twitter.length() == 0) twitter.setVisibility(View.GONE);
-        if (instagram.length() == 0) instagram.setVisibility(View.GONE);
+//    private void setInformationVisibility() {
+//        if (phoneNum1.length() == 0) phoneNum1.setVisibility(View.GONE);
+//        if (phoneNum2.length() == 0) phoneNum2.setVisibility(View.GONE);
+//        if (fax.length() == 0) fax.setVisibility(View.GONE);
+//        if (email.length() == 0) email.setVisibility(View.GONE);
+//        if (company.length() == 0) company.setVisibility(View.GONE);
+//        if (profession.length() == 0) profession.setVisibility(View.GONE);
+//        if (address.length() == 0) address.setVisibility(View.GONE);
+//        if (web.length() == 0) web.setVisibility(View.GONE);
+//        if (facebook.length() == 0) facebook.setVisibility(View.GONE);
+//        if (twitter.length() == 0) twitter.setVisibility(View.GONE);
+//        if (instagram.length() == 0) instagram.setVisibility(View.GONE);
+//    }
+
+    private void setInformation(TextView textView, String information){
+        if (information == null) {
+            textView.setVisibility(View.GONE);
+        } else {
+            textView.setText(information);
+        }
     }
 
     private void initSaveButton() {
@@ -137,7 +156,7 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
                     public void execute(Realm realm) {
                         realm.copyToRealm(card);
                     }
-                }, new Realm.Transaction.OnSuccess() {
+                }/*, new Realm.Transaction.OnSuccess() {
                     @Override
                     public void onSuccess() {
                         Toast.makeText(getContext(), "Збережено", Toast.LENGTH_SHORT).show();
@@ -147,9 +166,9 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
                     public void onError(Throwable error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
-                getDialog().cancel();
+                }*/);
             }
+            getDialog().cancel();
         } finally {
             realm.close();
         }
