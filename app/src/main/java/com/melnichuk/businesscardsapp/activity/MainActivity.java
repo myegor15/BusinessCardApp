@@ -21,12 +21,17 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.adapter.CardsFragmentAdapter;
+import com.melnichuk.businesscardsapp.api.NetworkService;
 import com.melnichuk.businesscardsapp.dialog.CardDialog;
 import com.melnichuk.businesscardsapp.fragment.AllCardsFragment;
 import com.melnichuk.businesscardsapp.fragment.ShareMyCardFragment;
 import com.melnichuk.businesscardsapp.pojo.Card;
+import com.melnichuk.businesscardsapp.pojo.User;
 
 import io.realm.Realm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +59,44 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 initScan();
+
+//                NetworkService.getInstance()
+//                        .getBusinessCardApi()
+//                        .getPersonalCard("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1OTkwODYzMH0.JnawIThQFp628V4c7Mxhf9n8Z9XaqTFpwyWpSzFW6GXC7bpERbBZbVyLa-mePcyBPLVfa3HJFZpi7HS5qK847g")
+//                        .enqueue(new Callback<Card>() {
+//                            @Override
+//                            public void onResponse(Call<Card> call, Response<Card> response) {
+//                                Card card = response.body();
+////                                if (card != null) {
+////                                    Toast.makeText(MainActivity.this, card.toString(), Toast.LENGTH_SHORT).show();
+////                                } else
+////                                    Toast.makeText(MainActivity.this, "fff", Toast.LENGTH_SHORT).show();
+//                                CardDialog dialog = new CardDialog();
+//                                dialog.setCard(card);
+//                                dialog.show(getSupportFragmentManager(), "dialog");
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<Card> call, Throwable t) {
+//                                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+
+//                NetworkService
+//                        .getInstance()
+//                        .getBusinessCardApi()
+//                        .signUp(new User("dima", "dima"))
+//                        .enqueue(new Callback<User>() {
+//                            @Override
+//                            public void onResponse(Call<User> call, Response<User> response) {
+//                                Toast.makeText(MainActivity.this, "fff", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<User> call, Throwable t) {
+//                                Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
             }
         });
     }
