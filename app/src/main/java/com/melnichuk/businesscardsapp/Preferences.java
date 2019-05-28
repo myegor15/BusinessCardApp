@@ -5,4 +5,5 @@ public class Preferences {
     public static final String APP_PREFERENCES_USERNAME = "username";
     public static final String APP_PREFERENCES_PASSWORD = "password";
     public static final String APP_PREFERENCES_TOKEN = "token";
+    public static final String APP_PREFERENCES_VISITED = "isVisited";
 }

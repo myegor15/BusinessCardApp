@@ -7,4 +7,6 @@
     <color name="mainTextColor">#000</color>
 
     <color name="colorWhite">#fff</color>
+
+    \<color name="editTextLoginColor">#f1f1f1</color>
 </resources>

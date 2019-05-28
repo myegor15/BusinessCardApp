@@ -270,14 +270,14 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(Preferences.APP_PREFERENCES,
                 Context.MODE_PRIVATE);
         // проверяем, первый ли раз открывается программа
-        boolean isVisited = preferences.getBoolean("isVisited", false);
+        boolean isVisited = preferences.getBoolean(Preferences.APP_PREFERENCES_VISITED, false);
 
         if (!isVisited) {
             startActivity(new Intent(this, LoginActivity.class));
-
-            Editor e = preferences.edit();
-            e.putBoolean("isVisited", true);
-            e.apply(); // не забудьте подтвердить изменения
+//
+//            Editor e = preferences.edit();
+//            e.putBoolean("isVisited", true);
+//            e.apply(); // не забудьте подтвердить изменения
         }
     }
 }

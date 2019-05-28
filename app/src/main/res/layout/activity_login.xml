@@ -23,51 +23,38 @@
         android:orientation="vertical">
 
         <EditText
+            style="@style/loginActivityStyle.EditText"
             android:id="@+id/username_loginActivity"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_style"
             android:hint="@string/username_loginActivity"
             android:inputType="textPersonName" />
 
         <EditText
+            style="@style/loginActivityStyle.EditText"
             android:id="@+id/password_loginActivity"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edit_text_style"
+            android:layout_marginTop="@dimen/loginActivity_margin"
             android:hint="@string/password_loginActivity"
             android:inputType="textPassword" />
 
         <Button
+            style="@style/loginActivityStyle.Button"
             android:id="@+id/signIn_button"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_style"
-            android:text="@string/signIn_loginActivity"
-            android:textColor="@color/colorWhite" />
+            android:layout_marginTop="@dimen/loginActivity_margin"
+            android:text="@string/signIn_loginActivity" />
+
+        <Button
+            style="@style/loginActivityStyle.Button"
+            android:id="@+id/signUp_button"
+            android:layout_marginTop="@dimen/loginActivity_margin"
+            android:text="@string/signUp_loginActivity" />
 
         <ProgressBar
             android:id="@+id/progressBar_loginActivity"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/loginActivity_margin"
             android:visibility="gone"/>
     </LinearLayout>
     
-    <Button
-        android:id="@+id/signUp_button"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/button_style"
-        android:text="@string/signUp_loginActivity"
-        android:textColor="@color/colorWhite" />
-
-
 
 </RelativeLayout>

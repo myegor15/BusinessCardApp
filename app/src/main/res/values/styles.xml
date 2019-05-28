@@ -52,4 +52,18 @@
         <item name="android:autoLink">web</item>
     </style>
 
+    <style name="loginActivityStyle">
+        <item name="android:layout_width">@dimen/loginActivity_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/mainTextSize</item>
+    </style>
+
+    <style name="loginActivityStyle.EditText">
+        <item name="android:background">@drawable/edit_text_style</item>
+    </style>
+
+    <style name="loginActivityStyle.Button">
+        <item name="android:background">@drawable/button_style</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
 </resources>

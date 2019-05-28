@@ -59,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.putString(Preferences.APP_PREFERENCES_USERNAME, username.getText().toString().trim());
                                         editor.putString(Preferences.APP_PREFERENCES_PASSWORD, password.getText().toString().trim());
                                         editor.putString(Preferences.APP_PREFERENCES_TOKEN, response.headers().get("Authorization"));
+                                        editor.putBoolean(Preferences.APP_PREFERENCES_VISITED, true);
                                         editor.apply();
 
                                         startActivity(new Intent(getApplicationContext(), MainActivity.class));

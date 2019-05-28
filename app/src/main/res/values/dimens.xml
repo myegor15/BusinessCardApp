@@ -19,4 +19,7 @@
     <dimen name="cardItemView_companyTextSize">16sp</dimen>
     <dimen name="navigationHeader_heightSize">164dp</dimen>
 
+    <!--activity_login-->
+    <dimen name="loginActivity_margin">10dp</dimen>
+    <dimen name="loginActivity_width">320dp</dimen>
 </resources>
