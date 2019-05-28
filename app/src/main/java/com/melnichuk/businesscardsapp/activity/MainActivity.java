@@ -1,6 +1,8 @@
 package com.melnichuk.businesscardsapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.melnichuk.businesscardsapp.Preferences;
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.adapter.CardsFragmentAdapter;
 import com.melnichuk.businesscardsapp.api.NetworkService;
@@ -33,6 +36,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.SharedPreferences.*;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int LAYOUT = R.layout.activity_main;
@@ -45,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        hasVisited();
 
         realm = Realm.getDefaultInstance();
 
@@ -257,5 +264,20 @@ public class MainActivity extends AppCompatActivity {
 //        integrator.setCameraId(0);
 //        integrator.setBarcodeImageEnabled(false);
         integrator.initiateScan();
+    }
+
+    private void hasVisited() {
+        SharedPreferences preferences = getSharedPreferences(Preferences.APP_PREFERENCES,
+                Context.MODE_PRIVATE);
+        // проверяем, первый ли раз открывается программа
+        boolean isVisited = preferences.getBoolean("isVisited", false);
+
+        if (!isVisited) {
+            startActivity(new Intent(this, LoginActivity.class));
+
+            Editor e = preferences.edit();
+            e.putBoolean("isVisited", true);
+            e.apply(); // не забудьте подтвердить изменения
+        }
     }
 }

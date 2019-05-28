@@ -30,4 +30,11 @@
     <!--dialog_card-->
     <string name="save_cardDialogBtn">Зберегти</string>
 
+    <!--LoginActivity-->
+    <string name="toolbarText_loginActivity">Вхід</string>
+    <string name="username_loginActivity">Логін</string>
+    <string name="password_loginActivity">Пароль</string>
+    <string name="signIn_loginActivity">Увійти</string>
+    <string name="signUp_loginActivity">Зареєструватися</string>
+
 </resources>

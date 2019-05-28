@@ -13,8 +13,11 @@ import retrofit2.http.POST;
 
 public interface BusinessCardApi {
 
-    @POST("/sign-up")
-    public Call<User> signUp(@Body User user);
+    @POST("/login")
+    public Call<Void> signIn(@Body User user);
+
+    @POST("/users/sign-up")
+    public Call<Void> signUp(@Body User user);
 
     @GET("/cards")
     public Call<List<Card>> getAllCards(@Header("Authorization") String token);
