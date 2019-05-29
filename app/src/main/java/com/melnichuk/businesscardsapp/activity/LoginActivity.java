@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.melnichuk.businesscardsapp.Preferences;
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.api.NetworkService;
 import com.melnichuk.businesscardsapp.pojo.User;
@@ -20,8 +19,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.SharedPreferences.Editor;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_AUTH_TOKEN;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_PASSWORD;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_USERNAME;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_VISITED;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private static final int LAYOUT = R.layout.activity_login;
 
     private EditText username;
     private EditText password;
@@ -32,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(LAYOUT);
 
         username = findViewById(R.id.username_loginActivity);
         password = findViewById(R.id.password_loginActivity);
@@ -54,12 +60,12 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<Void> call, Response<Void> response) {
                                     if (response.code() == 200) {
-                                        SharedPreferences preferences = getSharedPreferences(Preferences.APP_PREFERENCES, MODE_PRIVATE);
+                                        SharedPreferences preferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
                                         Editor editor = preferences.edit();
-                                        editor.putString(Preferences.APP_PREFERENCES_USERNAME, username.getText().toString().trim());
-                                        editor.putString(Preferences.APP_PREFERENCES_PASSWORD, password.getText().toString().trim());
-                                        editor.putString(Preferences.APP_PREFERENCES_TOKEN, response.headers().get("Authorization"));
-                                        editor.putBoolean(Preferences.APP_PREFERENCES_VISITED, true);
+                                        editor.putString(APP_PREFERENCES_USERNAME, username.getText().toString().trim());
+                                        editor.putString(APP_PREFERENCES_PASSWORD, password.getText().toString().trim());
+                                        editor.putString(APP_PREFERENCES_AUTH_TOKEN, response.headers().get("Authorization"));
+                                        editor.putBoolean(APP_PREFERENCES_VISITED, true);
                                         editor.apply();
 
                                         startActivity(new Intent(getApplicationContext(), MainActivity.class));

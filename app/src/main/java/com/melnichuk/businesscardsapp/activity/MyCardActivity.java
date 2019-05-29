@@ -1,26 +1,27 @@
 package com.melnichuk.businesscardsapp.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.melnichuk.businesscardsapp.Preferences;
 import com.melnichuk.businesscardsapp.R;
+import com.melnichuk.businesscardsapp.api.NetworkService;
 import com.melnichuk.businesscardsapp.pojo.Card;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
-
 import io.realm.Realm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener {
 
@@ -140,6 +141,33 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
                     Toast.makeText(MyCardActivity.this, "Помилка збереження", Toast.LENGTH_SHORT).show();
                 }
             });
+
+            SharedPreferences preferences = getSharedPreferences(Preferences.APP_PREFERENCES, MODE_PRIVATE);
+
+//            Date date = new Date(System.currentTimeMillis());
+//            SharedPreferences.Editor editor = preferences.edit();
+//            editor.putLong(Preferences.APP_PREFERENCES_UPDATE_PERSONAL_CARD, date.getTime());
+
+
+            NetworkService
+                    .getInstance()
+                    .getBusinessCardApi()
+                    .addPersonalCard(preferences.getString(Preferences.APP_PREFERENCES_AUTH_TOKEN, ""), card)
+                    .enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.code() != 200) {
+                                Toast.makeText(MyCardActivity.this, "Помилка збереження на сервер", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Toast.makeText(MyCardActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
 
             onBackPressed();
         } else {

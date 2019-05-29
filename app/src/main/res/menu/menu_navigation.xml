@@ -11,4 +11,14 @@
         android:title="@string/settingsMenu"
         android:icon="@drawable/ic_settings"/>
 
+    <item
+        android:id="@+id/settings_sync"
+        android:title="@string/syncMenu"
+        android:icon="@drawable/ic_sync"/>
+
+    <item
+        android:id="@+id/settings_logout"
+        android:title="@string/logoutMenu"
+        android:icon="@drawable/ic_logout"/>
+
 </menu>

@@ -21,22 +21,18 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.melnichuk.businesscardsapp.Preferences;
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.adapter.CardsFragmentAdapter;
-import com.melnichuk.businesscardsapp.api.NetworkService;
 import com.melnichuk.businesscardsapp.dialog.CardDialog;
 import com.melnichuk.businesscardsapp.fragment.AllCardsFragment;
 import com.melnichuk.businesscardsapp.fragment.ShareMyCardFragment;
 import com.melnichuk.businesscardsapp.pojo.Card;
-import com.melnichuk.businesscardsapp.pojo.User;
 
 import io.realm.Realm;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-import static android.content.SharedPreferences.*;
+import static android.content.SharedPreferences.Editor;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_VISITED;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
+    private SharedPreferences preferences;
     private Realm realm;
     private Card card;
 
@@ -66,44 +63,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 initScan();
-
-//                NetworkService.getInstance()
-//                        .getBusinessCardApi()
-//                        .getPersonalCard("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1OTkwODYzMH0.JnawIThQFp628V4c7Mxhf9n8Z9XaqTFpwyWpSzFW6GXC7bpERbBZbVyLa-mePcyBPLVfa3HJFZpi7HS5qK847g")
-//                        .enqueue(new Callback<Card>() {
-//                            @Override
-//                            public void onResponse(Call<Card> call, Response<Card> response) {
-//                                Card card = response.body();
-////                                if (card != null) {
-////                                    Toast.makeText(MainActivity.this, card.toString(), Toast.LENGTH_SHORT).show();
-////                                } else
-////                                    Toast.makeText(MainActivity.this, "fff", Toast.LENGTH_SHORT).show();
-//                                CardDialog dialog = new CardDialog();
-//                                dialog.setCard(card);
-//                                dialog.show(getSupportFragmentManager(), "dialog");
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<Card> call, Throwable t) {
-//                                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-
-//                NetworkService
-//                        .getInstance()
-//                        .getBusinessCardApi()
-//                        .signUp(new User("dima", "dima"))
-//                        .enqueue(new Callback<User>() {
-//                            @Override
-//                            public void onResponse(Call<User> call, Response<User> response) {
-//                                Toast.makeText(MainActivity.this, "fff", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<User> call, Throwable t) {
-//                                Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
             }
         });
     }
@@ -173,60 +132,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new ShareMyCardFragment());
 
         viewPager.setAdapter(adapter);
-//
-//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int i, float v, int i1) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int i) {
-//                if (i == 0) {
-//                    fab.show();
-//                } else {
-//                    fab.hide();
-//                }
-////                switch (i){
-////                    case 0:
-////                        fab.show();
-////                        break;
-////                        default:
-////                            fab.hide();
-////                            break;
-////                }
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int i) {
-////                switch (i){
-////                    case ViewPager.SCROLL_STATE_IDLE:
-////                        fab.show();
-////                        break;
-////                    case ViewPager.SCROLL_STATE_DRAGGING:
-//////                        fab.hide();
-//////                        break;
-////                    case ViewPager.SCROLL_STATE_SETTLING:
-////                        fab.hide();
-////                        break;
-////                }
-//
-////                switch (i) {
-////                    case ViewPager.SCROLL_STATE_DRAGGING:
-////                        fab.hide(); // Hide animation
-////                        break;
-////                    case ViewPager.SCROLL_STATE_IDLE:
-////                        switch (viewPager.getCurrentItem()) {
-////                            case 0:
-////                                fab.show(); // Hide animation
-////                                break;
-////                            default:
-////                                fab.hide(); // Hide animation
-////                                break;
-////                        }
-////                }
-//            }
-//        });
     }
 
     private void initNavigationView(){
@@ -249,10 +154,24 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.settings_menu:
                         Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.settings_sync:
+                        syncData();
+                        break;
+                    case R.id.settings_logout:
+                        Editor editor = preferences.edit();
+                        editor.clear();
+                        editor.apply();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        break;
                 }
                 return false;
             }
         });
+    }
+
+    private void syncData() {
+
     }
 
     private void initScan() {
@@ -267,17 +186,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void hasVisited() {
-        SharedPreferences preferences = getSharedPreferences(Preferences.APP_PREFERENCES,
-                Context.MODE_PRIVATE);
+        preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         // проверяем, первый ли раз открывается программа
-        boolean isVisited = preferences.getBoolean(Preferences.APP_PREFERENCES_VISITED, false);
+        boolean isVisited = preferences.getBoolean(APP_PREFERENCES_VISITED, false);
 
         if (!isVisited) {
             startActivity(new Intent(this, LoginActivity.class));
-//
-//            Editor e = preferences.edit();
-//            e.putBoolean("isVisited", true);
-//            e.apply(); // не забудьте подтвердить изменения
         }
     }
 }

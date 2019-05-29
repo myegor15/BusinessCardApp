@@ -26,11 +26,11 @@ public interface BusinessCardApi {
     public Call<Card> getPersonalCard(@Header("Authorization") String token);
 
     @POST("/cards")
-    public Call<List<Card>> addAllCards(@Header("Authorization") String token, @Body List<Card> data);
+    public Call<Void> addAllCards(@Header("Authorization") String token, @Body List<Card> data);
 
     @POST("/cards/one")
-    public Call<Card> addOneCard(@Header("Authorization") String token, @Body Card data);
+    public Call<Void> addOneCard(@Header("Authorization") String token, @Body Card data);
 
-    @POST("/personal")
-    public Call<Card> addPersonalCard(@Header("Authorization") String token, @Body Card data);
+    @POST("/cards/personal")
+    public Call<Void> addPersonalCard(@Header("Authorization") String token, @Body Card data);
 }

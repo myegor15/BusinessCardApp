@@ -1,5 +1,7 @@
 package com.melnichuk.businesscardsapp.dialog;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,10 +13,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.melnichuk.businesscardsapp.Preferences;
 import com.melnichuk.businesscardsapp.R;
+import com.melnichuk.businesscardsapp.api.NetworkService;
 import com.melnichuk.businesscardsapp.pojo.Card;
 
 import io.realm.Realm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CardDialog extends DialogFragment implements View.OnClickListener {
 
@@ -145,7 +152,7 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Realm realm = Realm.getDefaultInstance();
+        final Realm realm = Realm.getDefaultInstance();
         try {
             if(card != null) {
                 Number maxId = realm.where(Card.class).max("id");
@@ -167,6 +174,28 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }*/);
+
+                SharedPreferences preferences = getContext().getSharedPreferences(Preferences.APP_PREFERENCES, Context.MODE_PRIVATE);
+
+                NetworkService
+                        .getInstance()
+                        .getBusinessCardApi()
+                        .addOneCard(preferences.getString(Preferences.APP_PREFERENCES_AUTH_TOKEN, ""), card)
+                        .enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+//                                if (response.code() != 200) {
+//                                    Toast.makeText(getActivity(), "Помилка зюереження на сервер", Toast.LENGTH_SHORT).show();
+//                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+//                                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
             }
             getDialog().cancel();
         } finally {

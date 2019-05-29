@@ -10,6 +10,8 @@
     <!--menu_navigation-->
     <string name="myCardMenu">Моя візитка</string>
     <string name="settingsMenu">Налашування</string>
+    <string name="syncMenu">Синхронізація</string>
+    <string name="logoutMenu">Вийти</string>
 
     <!--MyCardActivity-->
     <string name="firstName_myCard">Ім\'я</string>
