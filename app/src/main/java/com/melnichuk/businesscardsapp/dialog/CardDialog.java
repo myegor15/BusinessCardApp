@@ -27,7 +27,6 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
 
     private static final int LAYOUT = R.layout.dialog_card;
 
-    private ImageView image;
     private TextView name;
     private TextView phoneNum1;
     private TextView phoneNum2;
@@ -66,7 +65,6 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
 
 //        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        image = view.findViewById(R.id.image_dialogCard);
         name = view.findViewById(R.id.name_dialogCard);
         phoneNum1 = view.findViewById(R.id.phoneNum1_dialogCard);
         phoneNum2 = view.findViewById(R.id.phoneNum2_dialogCard);

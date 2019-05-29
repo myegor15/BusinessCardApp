@@ -28,39 +28,37 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/image_myCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="2"
-                    android:src="@mipmap/ic_launcher" />
+                <ImageView
+                    style="@style/myCardSmallImageViewStyle"
+                    android:layout_margin="@dimen/mainPadding"
+                    android:src="@drawable/ic_person" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/mainPadding"
+                    android:layout_marginTop="@dimen/mainPadding_small"
                     android:layout_marginBottom="@dimen/mainPadding_small"
-                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <EditText
                         android:id="@+id/firstName_myCard"
                         style="@style/myCardEditTextStyle"
-                        android:layout_marginStart="@dimen/mainPadding"
+                        android:layout_gravity="center"
                         android:hint="@string/firstName_myCard"
                         android:inputType="textCapWords" />
 
                     <EditText
                         android:id="@+id/patronymic_myCard"
                         style="@style/myCardEditTextStyle"
-                        android:layout_marginStart="@dimen/mainPadding"
+                        android:layout_gravity="center"
                         android:hint="@string/patronymic_myCard"
                         android:inputType="textCapWords" />
 
                     <EditText
                         android:id="@+id/lastName_myCard"
                         style="@style/myCardEditTextStyle"
-                        android:layout_marginStart="@dimen/mainPadding"
+                        android:layout_gravity="center"
                         android:hint="@string/lastName_myCard"
                         android:inputType="textCapWords" />
 

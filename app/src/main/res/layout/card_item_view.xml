@@ -3,37 +3,22 @@
     android:id="@+id/cardItem_linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="@dimen/mainPadding">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image_cardItemView"
-        android:layout_width="@dimen/cardItemView_imageSize"
-        android:layout_height="@dimen/cardItemView_imageSize"
-        android:layout_gravity="center"
-        android:src="@mipmap/ic_launcher_round" />
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/name_cardItemView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="@dimen/mainPadding"
-        android:orientation="vertical">
+        android:text="Мельничук Єгор Юрійович"
+        android:textColor="@color/mainTextColor"
+        android:textSize="@dimen/mainTextSize"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/name_cardItemView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Мельничук Єгор Юрійович"
-            android:textColor="@color/mainTextColor"
-            android:textSize="@dimen/mainTextSize"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/company_cardItemView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Одеський Національний Політехнічний Університет"
-            android:textSize="@dimen/cardItemView_companyTextSize" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/company_cardItemView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Одеський Національний Політехнічний Університет"
+        android:textSize="@dimen/cardItemView_companyTextSize" />
 </LinearLayout>

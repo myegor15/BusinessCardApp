@@ -8,7 +8,6 @@ public class Card extends RealmObject {
     @PrimaryKey
     private int id;
 
-    private int image;
     private String firstName;
     private String patronymic;
     private String lastName;
@@ -33,14 +32,6 @@ public class Card extends RealmObject {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
     }
 
     public String getFirstName() {

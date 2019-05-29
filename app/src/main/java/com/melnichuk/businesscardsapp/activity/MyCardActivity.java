@@ -26,9 +26,7 @@ import retrofit2.Response;
 public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener {
 
     private static final int LAYOUT = R.layout.activity_my_card;
-    private static int RESULT_LOAD_IMAGE = 1;
 
-    private ImageView image;
     private EditText firstName;
     private EditText patronymic;
     private EditText lastName;
@@ -56,7 +54,6 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
 
         initToolbar();
 
-        image = findViewById(R.id.image_myCard);
         firstName = findViewById(R.id.firstName_myCard);
         patronymic = findViewById(R.id.patronymic_myCard);
         lastName = findViewById(R.id.lastName_myCard);
@@ -73,24 +70,6 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
         instagram = findViewById(R.id.instagram_myCard);
 
         initInformation();
-
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gallery = new Intent(
-                        Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(gallery, RESULT_LOAD_IMAGE);
-            }
-        });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
-                Picasso.get().load(data.getData()).resize(300, 300).centerCrop().into(image);
-        }
     }
 
     @Override
@@ -148,7 +127,6 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
 //            SharedPreferences.Editor editor = preferences.edit();
 //            editor.putLong(Preferences.APP_PREFERENCES_UPDATE_PERSONAL_CARD, date.getTime());
 
-
             NetworkService
                     .getInstance()
                     .getBusinessCardApi()
@@ -167,8 +145,6 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
                         }
                     });
 
-
-
             onBackPressed();
         } else {
             Toast.makeText(this, "Введіть ім'я та номер телефону", Toast.LENGTH_SHORT).show();
@@ -178,7 +154,6 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
 
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar_myCard);
-//        toolbar.setTitle(R.string.app_name);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(this);
         toolbar.inflateMenu(R.menu.menu_my_card);

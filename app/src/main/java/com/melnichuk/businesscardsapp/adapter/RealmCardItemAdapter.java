@@ -56,14 +56,12 @@ public class RealmCardItemAdapter extends RealmRecyclerViewAdapter<Card, RealmCa
     public static class CardItemViewHolder extends RecyclerView.ViewHolder {
 
         private LinearLayout cardItem;
-        private ImageView image;
         private TextView name;
         private TextView company;
 
         public CardItemViewHolder(@NonNull View itemView) {
             super(itemView);
             cardItem = itemView.findViewById(R.id.cardItem_linearLayout);
-            image = itemView.findViewById(R.id.image_cardItemView);
             name = itemView.findViewById(R.id.name_cardItemView);
             company = itemView.findViewById(R.id.company_cardItemView);
         }
