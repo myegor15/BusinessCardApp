@@ -23,15 +23,25 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.adapter.CardsFragmentAdapter;
+import com.melnichuk.businesscardsapp.api.NetworkService;
 import com.melnichuk.businesscardsapp.dialog.CardDialog;
 import com.melnichuk.businesscardsapp.fragment.AllCardsFragment;
 import com.melnichuk.businesscardsapp.fragment.ShareMyCardFragment;
 import com.melnichuk.businesscardsapp.pojo.Card;
 
+import java.util.List;
+
 import io.realm.Realm;
+import io.realm.RealmResults;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.SharedPreferences.Editor;
 import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_AUTH_TOKEN;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_UPDATE_CARDS;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_UPDATE_PERSONAL_CARD;
 import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_VISITED;
 
 public class MainActivity extends AppCompatActivity {
@@ -89,13 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     Gson gson = new Gson();
                     card = gson.fromJson(result.getContents(), Card.class);
-//                    card.setId(new Random().nextInt());
-//                    realm.executeTransactionAsync(new Realm.Transaction() {
-//                        @Override
-//                        public void execute(Realm realm) {
-//                            realm.copyToRealm(card);
-//                        }
-//                    });
                 } catch (JsonSyntaxException e){
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -159,10 +162,7 @@ public class MainActivity extends AppCompatActivity {
                         syncData();
                         break;
                     case R.id.settings_logout:
-                        Editor editor = preferences.edit();
-                        editor.clear();
-                        editor.apply();
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        logout();
                         break;
                 }
                 return false;
@@ -170,8 +170,167 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void syncData() {
+    private void logout() {
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.deleteAll();
+            }
+        });
+        Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+    }
 
+    private void syncData() {
+        String authToken = preferences.getString(APP_PREFERENCES_AUTH_TOKEN, "");
+
+        NetworkService
+                .getInstance()
+                .getBusinessCardApi()
+                .getCardsLastUpdate(authToken)
+                .enqueue(new Callback<List<Long>>() {
+                    @Override
+                    public void onResponse(Call<List<Long>> call, Response<List<Long>> response) {
+                        if (response.code() == 200) {
+                            List<Long> updateList = response.body();
+
+                            if (updateList.get(0) > preferences.getLong(APP_PREFERENCES_UPDATE_PERSONAL_CARD, 0)) {
+                                downloadPersonalCard(authToken, updateList.get(0));
+                            } else if (updateList.get(0) < preferences.getLong(APP_PREFERENCES_UPDATE_PERSONAL_CARD, 0)) {
+                                uploadPersonalCard(authToken);
+                            }
+
+                            if (updateList.get(1) > preferences.getLong(APP_PREFERENCES_UPDATE_CARDS, 0)) {
+                                downloadCards(authToken, updateList.get(1));
+                            } else if (updateList.get(1) < preferences.getLong(APP_PREFERENCES_UPDATE_CARDS, 0)) {
+                                uploadCards(authToken);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Long>> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void uploadCards(String authToken) {
+        List<Card> cards = realm.copyFromRealm(realm.where(Card.class).notEqualTo("id", 0).findAll());
+
+        NetworkService
+                .getInstance()
+                .getBusinessCardApi()
+                .addAllCards(authToken,
+                        preferences.getLong(APP_PREFERENCES_UPDATE_CARDS, 0),
+                        cards)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.code() != 200) {
+                            Toast.makeText(MainActivity.this, "Помилка синхронізації", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void downloadCards(String authToken, long time) {
+        NetworkService
+                .getInstance()
+                .getBusinessCardApi()
+                .getAllCards(authToken)
+                .enqueue(new Callback<List<Card>>() {
+                    @Override
+                    public void onResponse(Call<List<Card>> call, Response<List<Card>> response) {
+                        if (response.code() == 200) {
+                            realm.executeTransactionAsync(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    RealmResults<Card> cardList = realm.where(Card.class).notEqualTo("id", 0).findAll();
+                                    cardList.deleteAllFromRealm();
+                                    if (response.body() != null) {
+                                        realm.copyToRealmOrUpdate(response.body());
+                                    }
+                                }
+                            });
+
+                            Editor editor = preferences.edit();
+                            editor.putLong(APP_PREFERENCES_UPDATE_CARDS, time);
+                            editor.apply();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Помилка синхронізації", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Card>> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void uploadPersonalCard(String authToken) {
+        Card card = realm.copyFromRealm(realm.where(Card.class).equalTo("id", 0).findFirst());
+
+        NetworkService
+                .getInstance()
+                .getBusinessCardApi()
+                .addPersonalCard(authToken,
+                        preferences.getLong(APP_PREFERENCES_UPDATE_PERSONAL_CARD, 0),
+                        /*realm.where(Card.class).equalTo("id", 0).findFirstAsync()*/card)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.code() != 200) {
+                            Toast.makeText(MainActivity.this, "Помилка синхронізації", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void downloadPersonalCard(String authToken, long time) {
+        NetworkService
+                .getInstance()
+                .getBusinessCardApi()
+                .getPersonalCard(authToken)
+                .enqueue(new Callback<Card>() {
+                    @Override
+                    public void onResponse(Call<Card> call, Response<Card> response) {
+                        if (response.code() == 200) {
+                            realm.executeTransactionAsync(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    if (response.body() != null) {
+                                        realm.copyToRealmOrUpdate(response.body());
+                                    }
+                                }
+                            });
+
+                            Editor editor = preferences.edit();
+                            editor.putLong(APP_PREFERENCES_UPDATE_PERSONAL_CARD, time);
+                            editor.apply();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Помилка синхронізації", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Card> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void initScan() {

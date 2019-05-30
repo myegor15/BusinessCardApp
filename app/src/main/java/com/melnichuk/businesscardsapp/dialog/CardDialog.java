@@ -10,18 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.melnichuk.businesscardsapp.Preferences;
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.api.NetworkService;
 import com.melnichuk.businesscardsapp.pojo.Card;
+
+import java.util.Date;
 
 import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_AUTH_TOKEN;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_UPDATE_CARDS;
 
 public class CardDialog extends DialogFragment implements View.OnClickListener {
 
@@ -173,12 +177,18 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
                     }
                 }*/);
 
-                SharedPreferences preferences = getContext().getSharedPreferences(Preferences.APP_PREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences preferences = getContext().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+                Date date = new Date(System.currentTimeMillis());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putLong(APP_PREFERENCES_UPDATE_CARDS, date.getTime());
+                editor.apply();
 
                 NetworkService
                         .getInstance()
                         .getBusinessCardApi()
-                        .addOneCard(preferences.getString(Preferences.APP_PREFERENCES_AUTH_TOKEN, ""), card)
+                        .addOneCard(preferences.getString(APP_PREFERENCES_AUTH_TOKEN, ""),
+                                date.getTime(),
+                                card)
                         .enqueue(new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {

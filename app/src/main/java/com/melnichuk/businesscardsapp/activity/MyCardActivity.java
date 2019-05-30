@@ -1,27 +1,29 @@
 package com.melnichuk.businesscardsapp.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.melnichuk.businesscardsapp.Preferences;
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.api.NetworkService;
 import com.melnichuk.businesscardsapp.pojo.Card;
-import com.squareup.picasso.Picasso;
+
+import java.util.Date;
 
 import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.SharedPreferences.*;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_AUTH_TOKEN;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_UPDATE_PERSONAL_CARD;
 
 public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, View.OnClickListener {
 
@@ -121,16 +123,19 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
                 }
             });
 
-            SharedPreferences preferences = getSharedPreferences(Preferences.APP_PREFERENCES, MODE_PRIVATE);
+            SharedPreferences preferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
 
-//            Date date = new Date(System.currentTimeMillis());
-//            SharedPreferences.Editor editor = preferences.edit();
-//            editor.putLong(Preferences.APP_PREFERENCES_UPDATE_PERSONAL_CARD, date.getTime());
+            Date date = new Date(System.currentTimeMillis());
+            Editor editor = preferences.edit();
+            editor.putLong(APP_PREFERENCES_UPDATE_PERSONAL_CARD, System.currentTimeMillis());
+            editor.apply();
 
             NetworkService
                     .getInstance()
                     .getBusinessCardApi()
-                    .addPersonalCard(preferences.getString(Preferences.APP_PREFERENCES_AUTH_TOKEN, ""), card)
+                    .addPersonalCard(preferences.getString(APP_PREFERENCES_AUTH_TOKEN, ""),
+                            date.getTime(),//заменить на System.currentTimeMillis()
+                            card)
                     .enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
