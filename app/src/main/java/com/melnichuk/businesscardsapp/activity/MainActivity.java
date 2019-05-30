@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                 .getBusinessCardApi()
                 .addPersonalCard(authToken,
                         preferences.getLong(APP_PREFERENCES_UPDATE_PERSONAL_CARD, 0),
-                        /*realm.where(Card.class).equalTo("id", 0).findFirstAsync()*/card)
+                        card)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {

@@ -127,7 +127,7 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
 
             Date date = new Date(System.currentTimeMillis());
             Editor editor = preferences.edit();
-            editor.putLong(APP_PREFERENCES_UPDATE_PERSONAL_CARD, System.currentTimeMillis());
+            editor.putLong(APP_PREFERENCES_UPDATE_PERSONAL_CARD, date.getTime());
             editor.apply();
 
             NetworkService

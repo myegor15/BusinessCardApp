@@ -1,7 +1,10 @@
 package com.melnichuk.businesscardsapp.dialog;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.melnichuk.businesscardsapp.R;
 import com.melnichuk.businesscardsapp.api.NetworkService;
@@ -27,10 +32,11 @@ import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES;
 import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_AUTH_TOKEN;
 import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_UPDATE_CARDS;
 
-public class CardDialog extends DialogFragment implements View.OnClickListener {
+public class CardDialog extends DialogFragment implements View.OnClickListener, View.OnLongClickListener {
 
     private static final int LAYOUT = R.layout.dialog_card;
 
+    private LinearLayout header;
     private TextView name;
     private TextView phoneNum1;
     private TextView phoneNum2;
@@ -65,10 +71,13 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        realm = Realm.getDefaultInstance();
+
         View view = inflater.inflate(LAYOUT, container, false);
 
 //        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        header = view.findViewById(R.id.header_dialogCard);
         name = view.findViewById(R.id.name_dialogCard);
         phoneNum1 = view.findViewById(R.id.phoneNum1_dialogCard);
         phoneNum2 = view.findViewById(R.id.phoneNum2_dialogCard);
@@ -83,11 +92,19 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
         instagram = view.findViewById(R.id.instagram_dialogCard);
         save = view.findViewById(R.id.save_dialogCard);
 
+        header.setOnLongClickListener(this);
+
         initInformation();
 //        setInformationVisibility();
         initSaveButton();
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        realm.close();
     }
 
     private void initInformation() {
@@ -154,18 +171,16 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        final Realm realm = Realm.getDefaultInstance();
-        try {
-            if(card != null) {
-                Number maxId = realm.where(Card.class).max("id");
-                int nextId = (maxId == null) ? 1 : maxId.intValue() + 1;
-                card.setId(nextId);
-                realm.executeTransactionAsync(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        realm.copyToRealm(card);
-                    }
-                }/*, new Realm.Transaction.OnSuccess() {
+        if (card != null) {
+            Number maxId = realm.where(Card.class).max("id");
+            int nextId = (maxId == null) ? 1 : maxId.intValue() + 1;
+            card.setId(nextId);
+            realm.executeTransactionAsync(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    realm.copyToRealm(card);
+                }
+            }/*, new Realm.Transaction.OnSuccess() {
                     @Override
                     public void onSuccess() {
                         Toast.makeText(getContext(), "Збережено", Toast.LENGTH_SHORT).show();
@@ -202,12 +217,69 @@ public class CardDialog extends DialogFragment implements View.OnClickListener {
 //                                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
-
-
             }
+
             getDialog().cancel();
-        } finally {
-            realm.close();
-        }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        SharedPreferences preferences = getContext().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Видалення візитки")
+                .setMessage("Ви впевнені, що хочете видалити дану візитку?")
+                .setIcon(R.drawable.ic_delete)
+                .setPositiveButton("Так", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Editor editor = preferences.edit();
+                        Date date = new Date(System.currentTimeMillis());
+                        editor.putLong(APP_PREFERENCES_UPDATE_CARDS, date.getTime());
+                        editor.apply();
+
+                        int id = card.getId();
+                        realm.executeTransactionAsync(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm realm) {
+                                Card card1 = realm.where(Card.class).equalTo("id", id).findFirst();
+                                card1.deleteFromRealm();
+
+//                                добавить пост/делит запрос на удаление
+                                NetworkService
+                                        .getInstance()
+                                        .getBusinessCardApi()
+                                        .addAllCards(preferences.getString(APP_PREFERENCES_AUTH_TOKEN, ""),
+                                                date.getTime(),
+                                                realm.copyFromRealm(realm.where(Card.class).notEqualTo("id", 0).findAll()))
+                                        .enqueue(new retrofit2.Callback<Void>() {
+                                            @Override
+                                            public void onResponse(Call<Void> call, Response<Void> response) {
+//                                                if (response.code() != 200) {
+//                                                    Toast.makeText(getActivity(), "Помилка зюереження на сервер", Toast.LENGTH_SHORT).show();
+//                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Void> call, Throwable t) {
+//                                                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                        });
+
+                        getDialog().cancel();
+                    }
+                })
+                .setNegativeButton("Ні", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "No", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .create()
+                .show();
+
+        return false;
     }
 }

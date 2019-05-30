@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/header_dialogCard"
         android:layout_width="@dimen/cardDialog_layoutWidth"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
