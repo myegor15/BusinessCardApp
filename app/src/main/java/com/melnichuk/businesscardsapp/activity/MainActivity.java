@@ -12,7 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     Gson gson = new Gson();
                     card = gson.fromJson(result.getContents(), Card.class);
-                } catch (JsonSyntaxException e){
+                } catch (JsonSyntaxException e) {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -117,14 +119,6 @@ public class MainActivity extends AppCompatActivity {
     private void initToolbar() {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
-        toolbar.inflateMenu(R.menu.menu);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(MainActivity.this, "Search", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
     }
 
     private void initViewPager() {
@@ -137,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    private void initNavigationView(){
+    private void initNavigationView() {
         final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -151,17 +145,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 drawerLayout.closeDrawer(navigationView);
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.myCard_menu:
                         startActivity(new Intent(MainActivity.this, MyCardActivity.class));
+                        break;
+                    case R.id.search_menu:
+                        startActivity(new Intent(MainActivity.this, SearchActivity.class));
                         break;
                     case R.id.settings_menu:
                         Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.settings_sync:
+                    case R.id.sync_menu:
                         syncData();
                         break;
-                    case R.id.settings_logout:
+                    case R.id.logout_menu:
                         logout();
                         break;
                 }

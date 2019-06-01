@@ -110,7 +110,7 @@ public class CardDialog extends DialogFragment implements View.OnClickListener, 
     private void initInformation() {
 //        image.setImageResource(card.getImage());
         name.setText(card.getFirstName() +
-                (card.getPatronymic() != null ? " " + card.getPatronymic() : "") +
+                (card.getSecondName() != null ? " " + card.getSecondName() : "") +
                 (card.getLastName() != null ? " " + card.getLastName() : ""));
 //        phoneNum1.setText(card.getPhoneNum1());
 //        phoneNum2.setText(card.getPhoneNum2());

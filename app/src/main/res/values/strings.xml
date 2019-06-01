@@ -4,8 +4,8 @@
     <string name="openNavigation">Відкрити</string>
     <string name="closeNavigation">Закрити</string>
 
-    <!--menu-->
-    <string name="find_toolbarButton">Пошук</string>
+    <!--menu_search-->
+    <string name="searchMenu">Пошук</string>
 
     <!--menu_navigation-->
     <string name="myCardMenu">Моя візитка</string>

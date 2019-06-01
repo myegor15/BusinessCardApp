@@ -42,4 +42,8 @@ public interface BusinessCardApi {
 
     @GET("/cards/update")
     public Call<List<Long>> getCardsLastUpdate(@Header("Authorization") String token);
+
+    @GET("/cards/search")
+    public Call<List<Card>> getSearchResult(@Header("Authorization") String token,
+                                            @Header("Search") String text);
 }

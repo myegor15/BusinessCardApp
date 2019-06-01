@@ -1,26 +1,24 @@
 package com.melnichuk.businesscardsapp.adapter;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.melnichuk.businesscardsapp.dialog.CardDialog;
 import com.melnichuk.businesscardsapp.R;
+import com.melnichuk.businesscardsapp.dialog.CardDialog;
 import com.melnichuk.businesscardsapp.pojo.Card;
 
-import io.realm.OrderedRealmCollection;
-import io.realm.RealmRecyclerViewAdapter;
+import java.util.List;
 
-public class RealmCardItemAdapter extends RealmRecyclerViewAdapter<Card, CardItemViewHolder> {
+public class SearchCardItemAdapter extends RecyclerView.Adapter<CardItemViewHolder> {
 
-    public RealmCardItemAdapter(@Nullable OrderedRealmCollection<Card> data, boolean autoUpdate) {
-        super(data, autoUpdate);
+    private List<Card> cardList;
+
+    public SearchCardItemAdapter(List<Card> cardList) {
+        this.cardList = cardList;
     }
 
     @NonNull
@@ -36,7 +34,12 @@ public class RealmCardItemAdapter extends RealmRecyclerViewAdapter<Card, CardIte
 
     @Override
     public void onBindViewHolder(@NonNull CardItemViewHolder cardItemViewHolder, int i) {
-        cardItemViewHolder.bind(getData().get(i));
+        cardItemViewHolder.bind(cardList.get(i));
+    }
+
+    @Override
+    public int getItemCount() {
+        return cardList.size();
     }
 
     private View.OnClickListener initDialog(final ViewGroup viewGroup, final CardItemViewHolder viewHolder) {
@@ -44,11 +47,10 @@ public class RealmCardItemAdapter extends RealmRecyclerViewAdapter<Card, CardIte
             @Override
             public void onClick(View v) {
                 CardDialog dialog = new CardDialog();
-                dialog.setCard(getData().get(viewHolder.getAdapterPosition()));
+                dialog.setCard(cardList.get(viewHolder.getAdapterPosition()));
+                dialog.showSaveButton();
                 dialog.show(((FragmentActivity)viewGroup.getContext()).getSupportFragmentManager(), "CardDialog");
             }
         };
-
-
     }
 }

@@ -49,7 +49,7 @@
                         android:inputType="textCapWords" />
 
                     <EditText
-                        android:id="@+id/patronymic_myCard"
+                        android:id="@+id/secondName_myCard"
                         style="@style/myCardEditTextStyle"
                         android:layout_gravity="center"
                         android:hint="@string/patronymic_myCard"

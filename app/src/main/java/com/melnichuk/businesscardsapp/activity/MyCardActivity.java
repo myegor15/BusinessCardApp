@@ -30,7 +30,7 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
     private static final int LAYOUT = R.layout.activity_my_card;
 
     private EditText firstName;
-    private EditText patronymic;
+    private EditText secondName;
     private EditText lastName;
     private EditText phoneNum1;
     private EditText phoneNum2;
@@ -57,7 +57,7 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
         initToolbar();
 
         firstName = findViewById(R.id.firstName_myCard);
-        patronymic = findViewById(R.id.patronymic_myCard);
+        secondName = findViewById(R.id.secondName_myCard);
         lastName = findViewById(R.id.lastName_myCard);
         phoneNum1 = findViewById(R.id.telNum1_myCard);
         phoneNum2 = findViewById(R.id.telNum2_myCard);
@@ -92,7 +92,7 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
             final Card card = new Card();
             card.setId(0);
             card.setFirstName(getInfo(firstName));
-            card.setPatronymic(getInfo(patronymic));
+            card.setSecondName(getInfo(secondName));
             card.setLastName(getInfo(lastName));
             card.setPhoneNum1(getInfo(phoneNum1));
             card.setPhoneNum2(getInfo(phoneNum2));
@@ -169,7 +169,7 @@ public class MyCardActivity extends AppCompatActivity implements Toolbar.OnMenuI
         Card card = realm.where(Card.class).equalTo("id", 0).findFirst();
         if(card != null){
             firstName.setText(card.getFirstName());
-            patronymic.setText(card.getPatronymic());
+            secondName.setText(card.getSecondName());
             lastName.setText(card.getLastName());
             phoneNum1.setText(card.getPhoneNum1());
             phoneNum2.setText(card.getPhoneNum2());

@@ -9,7 +9,7 @@ public class Card extends RealmObject {
     private int id;
 
     private String firstName;
-    private String patronymic;
+    private String secondName;
     private String lastName;
     private String phoneNum1;
     private String phoneNum2;
@@ -42,12 +42,12 @@ public class Card extends RealmObject {
         this.firstName = firstName;
     }
 
-    public String getPatronymic() {
-        return patronymic;
+    public String getSecondName() {
+        return secondName;
     }
 
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
 
     public String getLastName() {

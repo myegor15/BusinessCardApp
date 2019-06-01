@@ -7,6 +7,8 @@
 
     <dimen name="fabMargin">16dp</dimen>
 
+    <dimen name="searchMargin">7dp</dimen>
+
     <!--dialog_card-->
     <dimen name="cardDialog_padding">10dp</dimen>
     <dimen name="cardDialog_phoneNum2Padding">34dp</dimen>

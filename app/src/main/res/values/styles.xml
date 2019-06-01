@@ -66,4 +66,14 @@
         <item name="android:background">@drawable/button_style</item>
         <item name="android:textColor">@color/colorWhite</item>
     </style>
+
+    <style name="editTextSearchActivityStyle">
+        <item name="android:background">@drawable/edit_text_white</item>
+        <item name="android:inputType">textCapWords</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorSilver</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
 </resources>
