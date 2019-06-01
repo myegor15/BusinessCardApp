@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/navigationHeader"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/navigationHeader_heightSize"
-    android:background="@color/colorPrimaryDark">
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    android:padding="@dimen/mainPadding">
+
+    <TextView
+        android:id="@+id/name_navHeader"
+        style="@style/navHeaderTextViewStyle.User"
+        android:text="name" />
+
+    <TextView
+        android:id="@+id/username_navHeader"
+        style="@style/navHeaderTextViewStyle"
+        android:text="username" />
 
 </LinearLayout>

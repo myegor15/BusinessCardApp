@@ -4,6 +4,7 @@
     <dimen name="mainPadding">16dp</dimen>
     <dimen name="mainPadding_small">4dp</dimen>
     <dimen name="mainTextSize">18sp</dimen>
+    <dimen name="bigTextSize">18sp</dimen>
 
     <dimen name="fabMargin">16dp</dimen>
 
@@ -19,7 +20,8 @@
     <!--card_item_dialog-->
     <dimen name="cardItemView_imageSize">56dp</dimen>
     <dimen name="cardItemView_companyTextSize">16sp</dimen>
-    <dimen name="navigationHeader_heightSize">164dp</dimen>
+
+    <!--<dimen name="navigationHeader_heightSize">164dp</dimen>-->
 
     <!--activity_login-->
     <dimen name="loginActivity_margin">10dp</dimen>

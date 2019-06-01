@@ -76,4 +76,15 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
+
+    <style name="navHeaderTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/bigTextSize</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="navHeaderTextViewStyle.User">
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

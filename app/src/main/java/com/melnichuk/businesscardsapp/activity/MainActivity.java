@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -45,6 +46,7 @@ import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES;
 import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_AUTH_TOKEN;
 import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_UPDATE_CARDS;
 import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_UPDATE_PERSONAL_CARD;
+import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_USERNAME;
 import static com.melnichuk.businesscardsapp.Preferences.APP_PREFERENCES_VISITED;
 
 public class MainActivity extends AppCompatActivity {
@@ -145,6 +147,20 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
 
         final NavigationView navigationView = findViewById(R.id.navigationView);
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView name = headerView.findViewById(R.id.name_navHeader);
+        TextView username = headerView.findViewById(R.id.username_navHeader);
+        Card card = realm.where(Card.class).equalTo("id", 0).findFirst();
+        if (card != null) {
+            name.setText(card.getFirstName() +
+                    (card.getSecondName() != null ? " " + card.getSecondName() : "") +
+                    (card.getLastName() != null ? " " + card.getLastName() : ""));
+        } else {
+            name.setVisibility(View.GONE);
+        }
+        username.setText(preferences.getString(APP_PREFERENCES_USERNAME, ""));
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -155,9 +171,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.search_menu:
                         startActivity(new Intent(MainActivity.this, SearchActivity.class));
-                        break;
-                    case R.id.settings_menu:
-                        Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.sync_menu:
                         syncData();

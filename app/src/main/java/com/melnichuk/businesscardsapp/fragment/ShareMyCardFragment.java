@@ -112,12 +112,12 @@ public class ShareMyCardFragment extends Fragment implements NfcAdapter.CreateNd
     private void initNfc() {
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(getContext());
         if (nfcAdapter == null) {
-            Toast.makeText(getContext(), "Цей пристрій не підтримує NFC", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "Цей пристрій не підтримує NFC", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!nfcAdapter.isEnabled()) {
-            Toast.makeText(getContext(), "Ввімкніть NFC", Toast.LENGTH_SHORT).show();
-        }
+//        if (!nfcAdapter.isEnabled()) {
+//            Toast.makeText(getContext(), "Увімкніть NFC", Toast.LENGTH_SHORT).show();
+//        }
         nfcAdapter.setNdefPushMessageCallback(this, getActivity());
     }
 }
