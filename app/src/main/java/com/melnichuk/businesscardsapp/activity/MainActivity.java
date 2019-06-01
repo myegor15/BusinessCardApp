@@ -3,7 +3,10 @@ package com.melnichuk.businesscardsapp.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,9 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -82,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        receiveNfcMessage();
+
         if (card != null) {
             CardDialog dialog = new CardDialog();
             dialog.setCard(card);
@@ -165,6 +169,20 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void receiveNfcMessage() {
+        Intent intent = getIntent();
+
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            Parcelable[] rawMessage = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
+            NdefMessage ndefMessage = (NdefMessage) rawMessage[0];
+            Gson gson = new Gson();
+            card = gson.fromJson(new String(ndefMessage.getRecords()[0].getPayload()), Card.class);
+        } /*else {
+            Toast.makeText(this, "w8", Toast.LENGTH_SHORT).show();
+        }*/
     }
 
     private void logout() {

@@ -1,6 +1,10 @@
 package com.melnichuk.businesscardsapp.fragment;
 
 import android.graphics.Bitmap;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,13 +27,15 @@ import java.util.Hashtable;
 
 import io.realm.Realm;
 
-public class ShareMyCardFragment extends Fragment {
+public class ShareMyCardFragment extends Fragment implements NfcAdapter.CreateNdefMessageCallback {
 
     private static final int LAYOUT = R.layout.fragment_share_my_card;
 
     private ImageView qrCode;
 
     private Realm realm;
+    private Card myCard;
+    private Gson gson;
 
     @Nullable
     @Override
@@ -40,6 +46,7 @@ public class ShareMyCardFragment extends Fragment {
 
         qrCode = view.findViewById(R.id.qrCode_myCard);
 
+//        myCard = realm.where(Card.class).equalTo("id", 0).findFirst();
         //initQrCode();
 
         return view;
@@ -48,7 +55,17 @@ public class ShareMyCardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        initQrCode();
+
+        myCard = realm.where(Card.class).equalTo("id", 0).findFirst();
+        if (myCard != null) {
+            gson = new Gson();
+
+            initQrCode();
+            initNfc();
+        } else {
+            //добавить надпись о незаполненой своей карты
+            Toast.makeText(getContext(), "Персональна карта не заповнена", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -58,9 +75,8 @@ public class ShareMyCardFragment extends Fragment {
     }
 
     private void initQrCode(){
-        Card myCard = realm.where(Card.class).equalTo("id", 0).findFirst();
-        if(myCard != null) {
-            Gson gson = new Gson();
+//        Card myCard = realm.where(Card.class).equalTo("id", 0).findFirst();
+//            Gson gson = new Gson();
             String myCard2Qr = gson.toJson(realm.copyFromRealm(myCard));
 
 //            MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
@@ -81,8 +97,27 @@ public class ShareMyCardFragment extends Fragment {
             } catch (WriterException e) {
                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        } else {
-            //добавить надпись о незаполненой своей карты
+    }
+
+    @Override
+    public NdefMessage createNdefMessage(NfcEvent event) {
+//            Gson gson = new Gson();
+            String myCardToNfc = gson.toJson(realm.copyFromRealm(myCard));
+            NdefRecord ndefRecord = NdefRecord.createMime("text/plain", myCardToNfc.getBytes());
+            NdefMessage ndefMessage = new NdefMessage(ndefRecord);
+
+            return ndefMessage;
+    }
+
+    private void initNfc() {
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(getContext());
+        if (nfcAdapter == null) {
+            Toast.makeText(getContext(), "Цей пристрій не підтримує NFC", Toast.LENGTH_SHORT).show();
+            return;
         }
+        if (!nfcAdapter.isEnabled()) {
+            Toast.makeText(getContext(), "Ввімкніть NFC", Toast.LENGTH_SHORT).show();
+        }
+        nfcAdapter.setNdefPushMessageCallback(this, getActivity());
     }
 }
