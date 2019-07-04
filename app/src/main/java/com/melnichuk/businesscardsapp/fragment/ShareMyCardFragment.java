@@ -34,8 +34,9 @@ public class ShareMyCardFragment extends Fragment implements NfcAdapter.CreateNd
     private ImageView qrCode;
 
     private Realm realm;
-    private Card myCard;
-    private Gson gson;
+//    private Card myCard;
+//    private Gson gson;
+    private String myCard2Json;
 
     @Nullable
     @Override
@@ -56,9 +57,31 @@ public class ShareMyCardFragment extends Fragment implements NfcAdapter.CreateNd
     public void onResume() {
         super.onResume();
 
-        myCard = realm.where(Card.class).equalTo("id", 0).findFirst();
+        Card myCard = realm.where(Card.class).equalTo("id", 0).findFirst();
         if (myCard != null) {
-            gson = new Gson();
+            Gson gson = new Gson();
+            myCard2Json = gson.toJson(realm.copyFromRealm(myCard));
+
+            initQrCode();
+            initNfc();
+        } else {
+            //добавить надпись о незаполненой своей карты
+            Toast.makeText(getContext(), "Персональна карта не заповнена", Toast.LENGTH_SHORT).show();
+        }
+//        initShare();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        realm.close();
+    }
+
+    private void initShare() {
+        Card myCard = realm.where(Card.class).equalTo("id", 0).findFirst();
+        if (myCard != null) {
+            Gson gson = new Gson();
+            myCard2Json = gson.toJson(realm.copyFromRealm(myCard));
 
             initQrCode();
             initNfc();
@@ -68,16 +91,10 @@ public class ShareMyCardFragment extends Fragment implements NfcAdapter.CreateNd
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        realm.close();
-    }
-
     private void initQrCode(){
 //        Card myCard = realm.where(Card.class).equalTo("id", 0).findFirst();
 //            Gson gson = new Gson();
-            String myCard2Qr = gson.toJson(realm.copyFromRealm(myCard));
+//            String myCard2Qr = gson.toJson(realm.copyFromRealm(myCard));
 
 //            MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
             Hashtable<EncodeHintType, String> hints = new Hashtable<>();
@@ -92,7 +109,7 @@ public class ShareMyCardFragment extends Fragment implements NfcAdapter.CreateNd
 //            }
             try {
                 BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-                Bitmap bitmap = barcodeEncoder.encodeBitmap(myCard2Qr, BarcodeFormat.QR_CODE, 500, 500, hints);
+                Bitmap bitmap = barcodeEncoder.encodeBitmap(myCard2Json, BarcodeFormat.QR_CODE, 500, 500, hints);
                 qrCode.setImageBitmap(bitmap);
             } catch (WriterException e) {
                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -102,8 +119,8 @@ public class ShareMyCardFragment extends Fragment implements NfcAdapter.CreateNd
     @Override
     public NdefMessage createNdefMessage(NfcEvent event) {
 //            Gson gson = new Gson();
-            String myCardToNfc = gson.toJson(realm.copyFromRealm(myCard));
-            NdefRecord ndefRecord = NdefRecord.createMime("text/plain", myCardToNfc.getBytes());
+//            String myCardToNfc = gson.toJson(realm.copyFromRealm(myCard));
+            NdefRecord ndefRecord = NdefRecord.createMime("text/plain", myCard2Json.getBytes());
             NdefMessage ndefMessage = new NdefMessage(ndefRecord);
 
             return ndefMessage;

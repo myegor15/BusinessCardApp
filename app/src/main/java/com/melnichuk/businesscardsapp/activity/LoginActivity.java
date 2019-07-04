@@ -49,81 +49,89 @@ public class LoginActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (username.getText().toString().trim().length() >= 6 || 
-                        username.getText().toString().trim().length() >= 6) {
-                    hideButtons();
-
-                    NetworkService.getInstance()
-                            .getBusinessCardApi()
-                            .signIn(new User(username.getText().toString().trim(), password.getText().toString().trim()))
-                            .enqueue(new Callback<Void>() {
-                                @Override
-                                public void onResponse(Call<Void> call, Response<Void> response) {
-                                    if (response.code() == 200) {
-                                        SharedPreferences preferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
-                                        Editor editor = preferences.edit();
-                                        editor.putString(APP_PREFERENCES_USERNAME, username.getText().toString().trim());
-                                        editor.putString(APP_PREFERENCES_PASSWORD, password.getText().toString().trim());
-                                        editor.putString(APP_PREFERENCES_AUTH_TOKEN, response.headers().get("Authorization"));
-                                        editor.putBoolean(APP_PREFERENCES_VISITED, true);
-                                        editor.apply();
-
-                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, "Невірний логін або пароль!!!", Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    showButtons();
-                                }
-
-                                @Override
-                                public void onFailure(Call<Void> call, Throwable t) {
-                                    Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-
-                                    showButtons();
-                                }
-                            });
-                } else {
-                    Toast.makeText(LoginActivity.this, "Короткий логій або пароль", Toast.LENGTH_SHORT).show();
-                }
+                onSignIn();
             }
         });
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (username.getText().toString().trim().length() >= 6 ||
-                        username.getText().toString().trim().length() >= 6) {
-                    hideButtons();
-
-                    NetworkService
-                            .getInstance()
-                            .getBusinessCardApi()
-                            .signUp(new User(username.getText().toString().trim(), password.getText().toString().trim()))
-                            .enqueue(new Callback<Void>() {
-                                @Override
-                                public void onResponse(Call<Void> call, Response<Void> response) {
-                                    if (response.code() == 400) {
-                                        Toast.makeText(LoginActivity.this, "Аккаунт зареєстровано", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, "Аккаунт з таком логіном уже існує", Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    showButtons();
-                                }
-
-                                @Override
-                                public void onFailure(Call<Void> call, Throwable t) {
-                                    Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-
-                                    showButtons();
-                                }
-                            });
-                } else {
-                    Toast.makeText(LoginActivity.this, "Короткий логій або пароль", Toast.LENGTH_SHORT).show();
-                }
+                onSignUp();
             }
         });
+    }
+
+    private void onSignIn() {
+        if (username.getText().toString().trim().length() >= 6 ||
+                username.getText().toString().trim().length() >= 6) {
+            hideButtons();
+
+            NetworkService.getInstance()
+                    .getBusinessCardApi()
+                    .signIn(new User(username.getText().toString().trim(), password.getText().toString().trim()))
+                    .enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.code() == 200) {
+                                SharedPreferences preferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+                                Editor editor = preferences.edit();
+                                editor.putString(APP_PREFERENCES_USERNAME, username.getText().toString().trim());
+                                editor.putString(APP_PREFERENCES_PASSWORD, password.getText().toString().trim());
+                                editor.putString(APP_PREFERENCES_AUTH_TOKEN, response.headers().get("Authorization"));
+                                editor.putBoolean(APP_PREFERENCES_VISITED, true);
+                                editor.apply();
+
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Невірний логін або пароль!!!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            showButtons();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            showButtons();
+                        }
+                    });
+        } else {
+            Toast.makeText(LoginActivity.this, "Короткий логій або пароль", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void onSignUp() {
+        if (username.getText().toString().trim().length() >= 6 ||
+                username.getText().toString().trim().length() >= 6) {
+            hideButtons();
+
+            NetworkService
+                    .getInstance()
+                    .getBusinessCardApi()
+                    .signUp(new User(username.getText().toString().trim(), password.getText().toString().trim()))
+                    .enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.code() == 400) {
+                                Toast.makeText(LoginActivity.this, "Аккаунт зареєстровано", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Аккаунт з таком логіном уже існує", Toast.LENGTH_SHORT).show();
+                            }
+
+                            showButtons();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            showButtons();
+                        }
+                    });
+        } else {
+            Toast.makeText(LoginActivity.this, "Короткий логій або пароль", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void hideButtons() {
