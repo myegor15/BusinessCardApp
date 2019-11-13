@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.LoginActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_login"
         app:title="@string/toolbarText_loginActivity"
         android:layout_width="match_parent"

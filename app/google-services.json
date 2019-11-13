@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "775667794692",
+    "firebase_url": "https://businesscardapp-e4c0a.firebaseio.com",
+    "project_id": "businesscardapp-e4c0a",
+    "storage_bucket": "businesscardapp-e4c0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775667794692:android:17751c5b3058ffb2af0651",
+        "android_client_info": {
+          "package_name": "com.melnichuk.businesscardapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775667794692-j7cq7m0cihdm3uclsr4pnah9kg05mdh9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.melnichuk.businesscardapp",
+            "certificate_hash": "039ec25716ad53103b5829c4b20d5de1c75b20d6"
+          }
+        },
+        {
+          "client_id": "775667794692-ustnjjg50gubsomnj8m2hmp8rjguleoi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALJxg-c4crOL30NHtW3DHSVH8TuxNwQ_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775667794692-ustnjjg50gubsomnj8m2hmp8rjguleoi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
